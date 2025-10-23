@@ -1,11 +1,1 @@
-{
-    "id": 5,
-    "nombre": "Osvaldo el mulato",
-    "descripcion": "Este emigrante era un antiguo carnicero en su tierra natal, Cuba. Dicen que es capaz de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo.",
-    "tipo": [
-        "Defensa"
-    ],
-    "complementario": [
-        "Machetes oxidados"
-    ]
-}
+[]

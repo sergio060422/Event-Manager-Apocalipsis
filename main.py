@@ -61,8 +61,21 @@ class Resource(FloatLayout):
     """
     def add_resource(self):
         recurso = Utils.get_one(self.id)
+        with open("recursos_seleccionados.json", "r") as data:
+            data = json.load(data)
+            data.append(recurso)
+            
         with open("recursos_seleccionados.json", "w") as file:
-            json.dump(recurso, file, indent=4)
+            json.dump(data, file, indent=4)
+
+    def quit_resource(self):
+        recurso = Utils.get_one(self.id)
+        with open("recursos_seleccionados.json", "r") as data:
+            data = json.load(data)
+            data.remove(recurso)
+            
+        with open("recursos_seleccionados.json", "w") as file:
+            json.dump(data, file, indent=4)
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
@@ -117,6 +130,7 @@ class Resource(FloatLayout):
             else:
                 self.my_color = [0.1, 0.1, 0.1, 1]
                 self.selected = 0
+                self.quit_resource()
                 
                 if menu.rInfo.name == resource["nombre"]:
                     menu.rInfo.opacity = 0
