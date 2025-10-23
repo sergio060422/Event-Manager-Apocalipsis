@@ -1,3 +1,2 @@
-kivy_venv/
 kivy_deps_build/
-.venv/
+kivy_venv/
