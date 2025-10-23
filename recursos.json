@@ -1,0 +1,170 @@
+[
+  {
+    "id": 1,
+    "nombre": "Escopeta de caza",
+    "descripcion": "Escopeta de caza calibre .50; ten cuidado al apretar el gatillo o podrías acabar decorando el techo del refugio.",
+    "tipo": ["Defensa"],
+    "complementario": ["Balas de escopeta"]
+  },
+  {
+    "id": 2,
+    "nombre": "Balas de escopeta",
+    "descripcion": "Balas de escopeta; puede que los magos las detengan con la boca, pero los caminantes no son magos.",
+    "tipo": ["Defensa"],
+    "complementario": ["Escopeta de caza"]
+  },
+  {
+    "id": 3,
+    "nombre": "Baby Shark",
+    "descripcion": "El mote de este revólver Magnum calibre .44 fue puesto por el abuelo, quien afirmaba que se podían cazar tiburones con él.",
+    "tipo": ["Defensa"],
+    "complementario": ["Balas del Baby Shark"]
+  },
+  {
+    "id": 4,
+    "nombre": "Balas del Baby Shark",
+    "descripcion": "Balas para revólver calibre .44; pueden usarse con el Baby Shark; tienen tallado un tiburón con zapatos.",
+    "tipo": ["Defensa"],
+    "complementario": ["Baby Shark"]
+  },
+  {
+    "id": 5,
+    "nombre": "Osvaldo el mulato",
+    "descripcion": "Este emigrante era un antiguo carnicero en su tierra natal, Cuba. Dicen que es capaz de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo.",
+    "tipo": ["Defensa"],
+    "complementario": ["Machetes oxidados"]
+  },
+  {
+    "id": 6,
+    "nombre": "Machetes oxidados",
+    "descripcion": "Solo Osvaldo sabe cómo usar estos machetes oxidados; no le gusta que los toquen.",
+    "tipo": ["Defensa"],
+    "complementario": ["Osvaldo el mulato", "Piedra de afilar"]
+  },
+  {
+    "id": 7,
+    "nombre": "Rocky",
+    "descripcion": "Este cachorro de husky siberiano fue el único superviviente junto al abuelo del ataque que sufrió el actual refugio antes de nuestra llegada; le gustan mucho las galletas.",
+    "tipo": ["Defensa", "Refugio"],
+    "complementario": ["Galletas en forma de hueso"]
+  },
+  {
+    "id": 8,
+    "nombre": "Galletas en forma de hueso",
+    "descripcion": "Estas galletas son las favoritas de Rocky; lánzaselas encima de los caminantes y deja que haga el trabajo.",
+    "tipo": ["Defensa", "Refugio"],
+    "complementario": ["Rocky"]
+  },
+  {
+    "id": 9,
+    "nombre": "Tefi, la mecánica",
+    "descripcion": "El primer juguete que Tefi tuvo en la infancia fue una llave inglesa; siempre estuvo muy unida a su padre y desde que este falleció en los sucesos de la primera oleada no ha sido la misma. Ahora lucha junto a tu grupo para encontrar la cura al virus.",
+    "tipo": ["Refugio"],
+    "complementario": ["Llave inglesa de papá"]
+  },
+  {
+    "id": 10,
+    "nombre": "Llave inglesa de papá",
+    "descripcion": "El primer juguete que tuvo Tefila dio su padre. Puede reparar cualquier cosa.",
+    "tipo": ["Refugio"],
+    "complementario": ["Tefi, la mecánica"]
+  },
+  {
+    "id": 11,
+    "nombre": "Kit de Mantenimiento de Refugio (KMR)",
+    "descripcion": "Este kit creado por Milly permite dar mantenimiento a las maquinarias del refugio sin tener grandes conocimientos de mecánica; no contiene instrucciones.",
+    "tipo": ["Refugio"],
+    "complementario": ["Aceite de motor"]
+  },
+  {
+    "id": 12,
+    "nombre": "Aceite de motor",
+    "descripcion": "Aceite de motor común y corriente, ideal para maquinarias chirriantes.",
+    "tipo": ["Refugio"],
+    "complementario": ["Kit de Mantenimiento de Refugio (KMR)"]
+  },
+  {
+    "id": 13,
+    "nombre": "Kit de Seguridad de Refugio (KSR)",
+    "descripcion": "Este kit creado por el abuelo es lo mejor para realizar reparaciones en las áreas más sensibles del refugio; después de la última oleada fue perfeccionado y actualizado.",
+    "tipo": ["Refugio"],
+    "complementario": ["Placa reforzante"]
+  },
+  {
+    "id": 14,
+    "nombre": "Placa reforzante",
+    "descripcion": "Como su nombre indica, esta placa fabricada con fibra de carbono puede reforzar cualquier tipo de estructura del refugio con tan solo un par de martillazos; se instala con el KSR.",
+    "tipo": ["Refugio"],
+    "complementario": ["Kit de Seguridad de Refugio (KSR)"]
+  },
+  {
+    "id": 15,
+    "nombre": "Polkish, el abuelo",
+    "descripcion": "Al abuelo Polkish lo encontramos en nuestro actual refugio junto a su adorable Rocky, es un experto en exploracion y supervivencia",
+    "tipo": ["Refugio", "Supervivencia"],
+    "complementario": ["Ziggy el filoso"]
+  },
+  {
+    "id": 16,
+    "nombre": "Ziggy el filoso",
+    "descripcion": "Este cuchillo Bowie pertenece al abuelo; tiene un filo descomunal, parece que fue traído de otro planeta.",
+    "tipo": ["Supervivencia"],
+    "complementario": ["Polkish, el abuelo", "Piedra de afilar"]
+  },
+  {
+    "id": 17,
+    "nombre": "Pathfinder",
+    "descripcion": "El Pathfinder es un Voksgawen modificado del año 68; sirve para realizar exploraciones rápidas al exterior.",
+    "tipo": ["Supervivencia"],
+    "complementario": ["Galón de gasolina"]
+  },
+  {
+    "id": 18,
+    "nombre": "Galón de gasolina",
+    "descripcion": "Un galón de gasolina; huele rico.",
+    "tipo": ["Supervivencia"],
+    "complementario": ["Pathfinder", "TIBURÓN"]
+  },
+  {
+    "id": 19,
+    "nombre": "TIBURÓN",
+    "descripcion": "Esta moto perteneció al abuelo en sus años de juventud cuando formaba parte de una banda de motoristas exploradores; está equipada con una escopeta cartucho adaptada.",
+    "tipo": ["Supervivencia", "Defensa"],
+    "complementario": ["Galón de gasolina", "Escopeta recortada adaptada"]
+  },
+  {
+    "id": 20,
+    "nombre": "Escopeta recortada adaptada",
+    "descripcion": "Escopeta recortada italiana de 2 proyectiles; el abuelo la llama 'Abremundos'.",
+    "tipo": ["Supervivencia", "Defensa"],
+    "complementario": ["Balas de escopeta"]
+  },
+  {
+    "id": 21,
+    "nombre": "Raciones enlatadas",
+    "descripcion": "Comida enlatada ideal para todo tipo de exploración; no tiene mucho sabor.",
+    "tipo": ["Supervivencia"],
+    "complementario": ["Abrelatas"]
+  },
+  {
+    "id": 22,
+    "nombre": "Abrelatas",
+    "descripcion": "Abrelatas marca OpenAll; sirve para abrir todo tipo de latas.",
+    "tipo": ["Supervivencia"],
+    "complementario": ["Raciones enlatadas"]
+  },
+  {
+    "id": 23,
+    "nombre": "Navaja suiza de Osvaldo",
+    "descripcion": "Navaja suiza hecha en Cuba; sirve para todo.",
+    "tipo": ["Supervivencia", "Refugio", "Defensa"],
+    "complementario": ["Piedra de afilar"]
+  },
+  {
+    "id": 24,
+    "nombre": "Piedra de afilar",
+    "descripcion": "Piedra de afilar para filos menores; aunque Osvaldo la usa con sus machetes.",
+    "tipo": ["Supervivencia", "Refugio", "Defensa"],
+    "complementario": ["Navaja suiza de Osvaldo", "Machetes oxidados"]
+  }
+]

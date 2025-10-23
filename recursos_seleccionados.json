@@ -1,0 +1,12 @@
+{
+    "id": 8,
+    "nombre": "Galletas en forma de hueso",
+    "descripcion": "Estas galletas son las favoritas de Rocky; l\u00e1nzaselas encima de los caminantes y deja que haga el trabajo.",
+    "tipo": [
+        "Defensa",
+        "Refugio"
+    ],
+    "complementario": [
+        "Rocky"
+    ]
+}

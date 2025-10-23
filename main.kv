@@ -1,0 +1,198 @@
+<ConfigEvent@BoxLayout>:
+    canvas.after:
+        Color:
+            rgba: 0.05, 0.05, 0.1, 1
+        Line:
+            rectangle: (self.x, self.y, self.width, self.height)
+            width: 4
+        Line:
+            rectangle: (self.x + self.width / 2, self.y, 0, self.height)
+            width: 4
+        
+    
+<PlayerLayout@BoxLayout>:
+    orientation: 'vertical'
+    padding: 4
+    canvas.before:
+        Color:
+            rgba: 0.1, 0.1, 0.15, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label: 
+        text: 'Sergio'
+        font_size: 36
+        color: 1, 1, 1, 0.8
+        font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
+        size_hint: None, None
+        size: self.texture_size
+        pos_hint: {'center_x': .5, 'y': 0}
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0, 1   
+            Rectangle:
+                pos: root.x, self.y - 4
+                size: root.width, 4
+            Color:
+                rgba: 0.05, 0.05, 0.1, 1
+            Rectangle:
+                pos: root.x, self.y
+                size: root.width, self.height
+        
+    FloatLayout:
+        size_hint: None, None
+        size: root.width - 8, root.height - 50
+        Image:
+            source: 'assets/character.png'
+            size_hint: None, None
+            size: 280, 480
+            pos: root.x, 120
+            pos_hint: {'center_x': .5}
+           
+<ResourcesLayout@BoxLayout>:
+    orientation: 'vertical'
+    padding: 4
+    canvas.before:
+        Color:
+            rgba: 0.1, 0.1, 0.15, 0.8
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label: 
+        text: 'Inventario'
+        font_size: 36
+        color: 1, 1, 1, 0.8
+        font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
+        size_hint: None, None
+        size: self.texture_size
+        pos_hint: {'center_x': .5, 'y': 0}
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0, 1   
+            Rectangle:
+                pos: root.x, self.y - 3
+                size: root.width, 4
+            Color:
+                rgba: 0.05, 0.05, 0.1, 1
+            Rectangle:
+                pos: root.x, self.y
+                size: root.width, self.height
+        size: self.texture_size
+
+
+<ResourceList>:
+    spacing: 2
+    canvas.before:
+        Color:
+            rgba: 0, 1, 0, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+<Resource>:
+    size_hint: None, None
+    size: 66.6, 65
+    canvas.after:
+        Color:
+            rgba: self.my_color
+        Line:
+            rectangle: (self.x, self.y, self.width, self.height)
+            width: 2
+
+<ResourceInfoLayout>:
+    canvas.before:
+        Color:
+            rgba: 0.15, 0.15, 0.2, 0.8
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    canvas.after:
+        Color:
+            rgba: 0.05, 0.05, 0.1, 1
+        Line:
+            rectangle: (self.x, self.y, self.width, self.height)
+            width: 4
+        Line:
+            rectangle: (0, self.y + (self.height - 120), 120, self.height)
+            width: 2
+        Line:
+            rectangle: (0, self.y + (self.height - 120), self.width, self.y + (self.height - 120))
+            width: 2
+    
+    
+    size_hint: None, None
+    size: 300, 400
+    pos_hint: {'x': 0, 'top':1}
+    padding: 10
+    spacing: 10
+    opacity: 0
+    Image:
+        source: root.img_source
+        size_hint: None, None
+        size: 100, 100
+
+    StackLayout:
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        size_hint: None, None
+        size: 170, 110
+        padding: 4
+
+        Label:
+            markup: True
+            text: "[b] Nombre: [/b]" + root.name
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+        Label:
+            markup: True
+            text: "[b] Tipo: [/b]" + root.type
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+
+    StackLayout:
+        canvas.before:
+            Color:
+                rgba: 1, 0, 1, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        size_hint: None, None
+        size: 280, 180
+        Label:
+            markup: True
+            text: "[b] Descripcion: [/b]" + root.description
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+    StackLayout:
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: "bt-lr"
+        size_hint: None, None
+        size: 280, 70
+        Label:
+            markup: True
+            text: "[b] Complementario: [/b]" + root.complementary
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+    
+
+    
