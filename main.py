@@ -15,6 +15,8 @@ from kivy.properties import ListProperty
 from kivy.core.window import Window
 from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
+from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
+from configuracion import MainConfig
 import json
 from kivy.lang import Builder
 from kivy.clock import Clock
@@ -91,7 +93,10 @@ class Resource(FloatLayout):
             info.complementary = comp
 
             self.hovered = True
-            self.opacity = 0.8
+
+            if not self.selected:
+                self.opacity = 0.8
+
             Window.set_system_cursor('hand')  
             info.opacity = 1
         else:
@@ -129,10 +134,12 @@ class Resource(FloatLayout):
             if not self.selected:
                 self.my_color = [0, 0.8, 0.6, 0.8]
                 self.selected = 1
+                self.opacity = 1
                 self.add_resource()              
             else:
                 self.my_color = [0.1, 0.1, 0.1, 1]
                 self.selected = 0
+                self.opacity = 0.8
                 self.quit_resource()
 
 """
@@ -187,7 +194,7 @@ class ConfigEvent(BoxLayout):
 """
 componente contenedor de todo el panel de recursos
 """
-class EventMenu(FloatLayout):
+class ResourceMenu(FloatLayout):
     def __init__(self):
         super().__init__()
         self.background = Image(source="assets/background_main.png")
@@ -195,10 +202,7 @@ class EventMenu(FloatLayout):
         self.add_widget(ConfigEvent())
         self.rInfo = ResourceInfoLayout()
         self.add_widget(self.rInfo)
-        
-    active = 0
-
-
+    
 class ButtonAdvance(ButtonBehavior, Image):
     def __init__(self):
         super().__init__()
@@ -217,14 +221,39 @@ class ButtonAdvance(ButtonBehavior, Image):
                 Window.set_system_cursor('arrow')
 
     def on_press(self):
-        pass
+        screenParent = Utils.appList().screenParent
+        screenParent.current = "config"
+
+class ScreenChild(Screen):
+    def __init__(self, nombre, contenido):
+        super().__init__()
+        self.name = nombre
+        self.add_widget(contenido)
+
+class ScreenParent(ScreenManager):
+    def __init__(self):
+        super().__init__()
+        self.add_widget(ScreenChild("main", Utils.appList().menu))
+        self.add_widget(ScreenChild("config", MainConfig()))
+        self.current = "main"
+        self.transition = SlideTransition(duration=0.5, direction="left")
 
 """
 cuerpo de la aplicacion
 """
 class Main(App):
     def build(self):        
-        self.menu = EventMenu()
-        return self.menu
-        
+        self.menu = ResourceMenu()
+        self.screenParent = ScreenParent()
+        return self.screenParent
+
+def cleanJSON(*args):
+    with open("recursos_seleccionados.json", "w") as file:
+        json.dump([], file, indent=4)
+
+Window.bind(on_request_close=cleanJSON)    
+
+
+
+
 Main().run()
