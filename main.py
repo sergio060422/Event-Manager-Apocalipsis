@@ -97,14 +97,15 @@ class Resource(FloatLayout):
 
             if not self.selected:
                 self.opacity = 0.8
-
-            Window.set_system_cursor('hand')  
+            if not Utils.appList().mycon.active:
+                Window.set_system_cursor('hand')  
             info.opacity = 1
         else:
             if self.hovered:
                 self.hovered = False
                 self.opacity = 1
-                Window.set_system_cursor('arrow')
+                if not Utils.appList().mycon.active:
+                    Window.set_system_cursor('arrow')
 
                 info.opacity = 0
 
@@ -131,6 +132,8 @@ class Resource(FloatLayout):
             json.dump(data, file, indent=4)
 
     def on_touch_down(self, touch):
+        if Utils.appList().mycon.active:
+            return
         if self.collide_point(*touch.pos):
             if not self.selected:
                 self.my_color = [0, 0.8, 0.6, 0.8]
@@ -208,19 +211,27 @@ class ButtonAdvance(ButtonBehavior, Image):
     hovered = 0
 
     def on_move(self, win, pos):
-        if self.collide_point(pos[0], pos[1]):
+        if Utils.appList().mycon.active:
+            return
+        if self.collide_point(*pos):
             if not self.hovered:
                 self.hovered = True
+                self.opacity = 0.9
                 Window.set_system_cursor('hand')
         else:
             if self.hovered:
                 self.hovered = False
+                self.opacity = 1
                 Window.set_system_cursor('arrow')
 
     def on_press(self):
         screenParent = Utils.appList().screenParent
         Utils.appList().mycon.layo.rlist.update()
+        Utils.appList().mycon.active = True
+        Window.set_system_cursor('arrow')
         screenParent.current = "config"
+        screenParent.transition = SlideTransition(duration=0.5, direction="right")
+       
 
 class ScreenChild(Screen):
     def __init__(self, nombre, contenido):
@@ -231,7 +242,7 @@ class ScreenChild(Screen):
 class ScreenParent(ScreenManager):
     def __init__(self):
         super().__init__()
-        #self.add_widget(ScreenChild("main", Utils.appList().menu))
+        self.add_widget(ScreenChild("main", Utils.appList().menu))
         self.add_widget(ScreenChild("config", Utils.appList().mycon))
         self.transition = SlideTransition(duration=0.5, direction="left")
 

@@ -61,7 +61,7 @@ class ResourceP(FloatLayout):
         resource = Utils.get_one(self.id)
         info = Utils.appList().mycon.reso
 
-        if self.collide_point(pos[0], pos[1]):
+        if self.collide_point(*pos):
             info.img_source = f"assets/{self.id}.png"
             info.name = resource["nombre"]
             info.description = resource["descripcion"]
@@ -121,6 +121,9 @@ class ResourceListP(StackLayout):
         self.orientation = 'lr-tb'
         
     def update(self):
+        for i in list(self.children):
+            self.remove_widget(i)
+        
         with open("recursos_seleccionados.json", "r") as file:
             file = json.load(file)
             for i in file:
