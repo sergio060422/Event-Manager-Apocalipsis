@@ -17,6 +17,8 @@
 <EventHandler>:
     size_hint: None, None
     size: (500, 500)
+    orientation: 'vertical'
+    spacing: 20
 
     canvas.before:
         Color:
@@ -32,7 +34,7 @@
         font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
         size_hint: None, None
         width: self.parent.width
-        height: self.texture_size[1]
+        height: self.texture_size[1] + 3
         pos_hint: {'center_x': 0.5, 'center_y': 0}
         canvas.before:
             Color:
@@ -45,5 +47,89 @@
             Rectangle:
                 pos: root.x, self.y
                 size: root.width, self.height
+        
  
+
+<SelectorCaller>:
+    size_hint: None, None
+    size: (450, 30)
+    pos_hint: {'center_x': 0.5, 'y': 0}
+    
+    canvas.before:
+        Color:
+            rgba: 0.15, 0.15, 0.2, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12]
+
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+            width: 1
+    Image:
+        source: self.parent.icon
+        size_hint: None, None
+        size: (30, 30)
+        pos: (root.x + root.width - self.width, root.y)    
+    Label:
+        size_hint: None, None
+        font_size: 20
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        size: self.texture_size
+        text: self.parent.textvalue
+
+<Event>:
+    size_hint_y: None
+    height: 40
+
+    canvas.before:
+        Color:
+            rgba: 0.15, 0.15, 0.2, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            points: [self.x, self.y, self.x + self.width, self.y]
+            width: 1  
+
+    Label:
+        font_size: 20
+        text: self.parent.title
+
+<EventInfo>
+    orientation: 'vertical'
+    spacing: 8
+    Label:
+        text: "Descripcion:"
+        font_size: 22
+        size_hint: None, None
+        size: self.texture_size 
+        pos_hint:{'x': 0.05, 'y':0}
+    Label:
+        size_hint: None, None
+        size: 450, 200
+        pos_hint:{'center_x': .5, 'y':0}
+        
+        canvas.before:
+            Color:
+                rgba: 0.15, 0.15, 0.2, 0.5
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [12]
+
+        canvas.after:
+            Color:
+                rgba: 1, 1, 1, 1
+            Line:
+                rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+                width: 1    
+
     

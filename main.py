@@ -231,9 +231,8 @@ class ScreenChild(Screen):
 class ScreenParent(ScreenManager):
     def __init__(self):
         super().__init__()
-        self.add_widget(ScreenChild("main", Utils.appList().menu))
+        #self.add_widget(ScreenChild("main", Utils.appList().menu))
         self.add_widget(ScreenChild("config", Utils.appList().mycon))
-        self.current = "main"
         self.transition = SlideTransition(duration=0.5, direction="left")
 
 """
