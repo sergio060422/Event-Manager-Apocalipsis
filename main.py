@@ -22,6 +22,7 @@ from kivy.lang import Builder
 from kivy.clock import Clock
 from confi_info_class import ResourceInfoLayoutP, ResourcesLayoutP, ResourceP
 from utilities import *
+from calendar_widget import TotalCalendar
 
 """
 imagen del jugador
@@ -242,7 +243,9 @@ def cleanJSON(*args):
     with open("recursos_seleccionados_event.json", "w") as file:
         json.dump([], file, indent=4)
 
-Window.bind(on_request_close=cleanJSON)    
+Window.bind(on_request_close=cleanJSON)
+Builder.load_file("calendar_widget.kv")    
 Builder.load_file("configuracion.kv")
 Builder.load_file("confi_info_class.kv")
+
 Main().run()

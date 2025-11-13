@@ -1,6 +1,7 @@
 from kivy.config import Config
 from kivy.app import App
 from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
@@ -19,6 +20,10 @@ from kivy.lang import Builder
 from kivy.uix.dropdown import DropDown
 from utilities import *
 from kivy.uix.scrollview import ScrollView
+from calendar_widget import TotalCalendar, getCalendar
+from kivy.factory import Factory
+from kivy.uix.button import Button
+from event_manager import *
 
 class Manage:
     def get_all():
@@ -85,24 +90,78 @@ class SelectorCaller(FloatLayout):
             self.icon = "assets/plus.png"
 
 class NeedResources(StackLayout):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.padding = (30, 0, 30, 0)
+
+Factory.register('NeedResources', cls=NeedResources)
+
+class DateIniButton(Button):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos) and (appList().mycon.children[0].__class__.__name__ != "TotalCalendar"):
+            appList().mycon.add_widget(TotalCalendar(0))
+            
+      
+Factory.register('DateIniButton', DateIniButton)
+
+class DateEndButton(Button):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos) and (appList().mycon.children[0].__class__.__name__ != "TotalCalendar"):
+            appList().mycon.add_widget(TotalCalendar(1))
+            
+
+Factory.register('DateEndButton', DateEndButton)
+
+class DateIni(Label):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.text = "None"
+        
+
+Factory.register('DateIni', DateIni)
+
+class DateEnd(Label):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.text = "None"
+
+Factory.register('DateEnd', DateEnd)
+
+class DateIni(Label):
     def __init__(self):
         super().__init__()
-        self.padding = (30, 0, 30, 0)
-        
+        self.text = "None"
+
+def getSize(widget, target):
+    ans = 0
+
+    for child in widget.children:
+        if child != target:
+            ans += child.height
+    
+    return ans
 
 class EventInfo(BoxLayout):
     def __init__(self):
         super().__init__()
-        self.need = NeedResources()
-        self.add_widget(self.need, index=0)
+        self.orientation = "vertical"
+        self.need = self.ids.need
+        self.dateIni = self.ids.dateini
+        self.dateEnd = self.ids.datend
         self.current = 0
 
-    description = StringProperty((""))
     img = StringProperty("")
     type = StringProperty("")
     danger = StringProperty("")
     danger_color = ListProperty([0, 0, 0, 0])
     place = StringProperty("")
+   
     dg_colors = {
         1: [0.18,0.80,0.44,1], 
         2: [0.60,0.88,0.60,1],  
@@ -119,22 +178,25 @@ class EventInfo(BoxLayout):
     }
     def update(self, i):
         e = Manage.get_one(i)
+        setEvent(e)
 
         for x in list(self.need.children):
             self.need.remove_widget(x)
 
+        val = 0
         for x in e["necesita"]:
-            resource = ResourceP(x)
-            resource.on_hover = setup_hover(resource, 1, 1)
+            resource = ResourceP(x, False)
             resource.my_color = [0.5, 0.5, 0.5, 1]
             resource.icon.size = (50, 50)
             resource.on_move = None
             resource.on_touch_down = lambda x: None
             self.need.add_widget(resource)
-
-        self.description = e["descripcion"]
+        
+        self.need.height = ((len(e["necesita"]) // 6) + 1) * 65
+        self.ids.description.text = e["descripcion"]
         self.img = f"assets/event_images/{i + 1}.png"
         self.type = ""
+        
         for i in e["tipo"]:
             if i == "Defensa":
                 self.type += "• ⛨ Defensa \n"
@@ -142,10 +204,19 @@ class EventInfo(BoxLayout):
                 self.type += "• 🏠Refugio \n"
             if i == "Supervivencia":
                 self.type += "• 🏕️ Supervivencia \n"
+
         dg = e["peligro"]
         self.danger = "-" + self.danger_words[dg] + "-"
         self.danger_color = self.dg_colors[dg]
         self.place = "• " + e["ubicacion"]
+        self.height = 350 + self.need.height + HeightDescription[e["id"]] + 75
+
+    def updateIni(self, value):
+        self.dateIni.text = value
+
+    def updateEnd(self, value):
+        self.dateEnd.text = value
+
 
 class ScrollEventInfo(ScrollView):
     def __init__(self):
@@ -174,11 +245,12 @@ class Backpack(StackLayout):
 class ConfiEvent(BoxLayout):
     def __init__(self):
         super().__init__()
-        self.add_widget(EventHandler())
+        self.eventHandler = EventHandler()
+        self.add_widget(self.eventHandler)
         self.layo = ResourcesLayoutP()
         self.add_widget(self.layo)
 
-class backbuttton(ButtonBehavior, Image):
+class Backbutton(ButtonBehavior, Image):
     def __init__(self):
         super().__init__()
         self.source = "assets/backbutton.png"
@@ -196,16 +268,36 @@ class backbuttton(ButtonBehavior, Image):
             screenParent.current = "main"
             screenParent.transition = SlideTransition(duration=0.5, direction="left")
 
+class AdventureButton(ButtonBehavior, Image):
+    def __init__(self):
+        super().__init__()
+        self.source = "assets/adventure.png"
+        setup_hover(self, 1)
+
+    hovered = False
+
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos):
+            join_child(appList().mycon, "EventInfo")
+            eventInfo = finded.ans
+            dateIni = eventInfo.dateIni.text
+            dateEnd = eventInfo.dateEnd.text
+            createEvent(dateIni, dateEnd)
+
+            
 class MainConfig(FloatLayout):
     def __init__(self):
         super().__init__()
         self.img = Image(source="assets/background_config.png")
         self.add_widget(self.img)
-        self.add_widget(backbuttton())
+        self.backbutton = Backbutton()
+        self.add_widget(self.backbutton)
         self.cefi = ConfiEvent()
         self.add_widget(self.cefi)
         self.reso = ResourceInfoLayoutP()
         self.layo = self.cefi.layo
         self.add_widget(self.reso)
-    
-   
+        self.adventureButton = AdventureButton()
+        self.add_widget(self.adventureButton)
+        
+       

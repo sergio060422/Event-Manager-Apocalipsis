@@ -109,10 +109,9 @@
     bar_color: 0.8, 0.8, 0.9, 0.7
     
 <EventInfo>
-    orientation: 'vertical'
     spacing: 8
     size_hint_y: None
-    height: 500
+    
     StackLayout:
         size_hint: None, None
         size: (self.parent.width, 200)
@@ -185,10 +184,11 @@
         size: 450, self.texture_size[1] + 20
         pos_hint:{'center_x': .5, 'y':0}
         text_size: self.width - 20, None
-        text: self.parent.description
         halign: "left"
         markup: 0
         font_size: 18
+        index: 0
+        id: description
     
         canvas.before:
             Color:
@@ -204,6 +204,7 @@
             Line:
                 rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
                 width: 1    
+
     Label:
         markup: True
         text: "[b] Recursos necesarios: [/b]"
@@ -212,6 +213,69 @@
         size: self.texture_size 
         pos_hint:{'x': 0.05, 'y':0}
         index: 0
-    
+    NeedResources:
+        id: need
+        index: 0
+        size_hint: None, None
+        width: root.width
+    Label:
+        index: 0
+        markup: True
+        text: "[b] Tiempo de aventura: [/b]"
+        font_size: 24
+        size_hint: None, None
+        size: self.texture_size 
+        pos_hint:{'x': 0.05, 'y':0}
+    BoxLayout:
+        pos_hint: {'x': 0.05, 'y': 0}
+        size_hint: None, None
+        height: 30
+        DateIniButton:
+            font_size: 20
+            text: "Inicio"
+            size_hint: None, None
+            size: self.texture_size 
+            padding: 4
+        Label:
+            text: "-"
+            size_hint: None, None
+            pos_hint: {'center_x': .5, "center_y": .5}
+            width: 40
+        DateEndButton:
+            font_size: 20
+            text: "Final"
+            size_hint: None, None
+            size: self.texture_size
+            padding: 4
+    BoxLayout:
+        pos_hint: {'x': 0.05, 'y': 0}
+        size_hint: None, None
+        height: 30
+        DateIni:
+            id: dateini
+            font_size: 20
+            text: "No seleccionado!"
+            size_hint: None, None
+            size: self.texture_size 
+            padding: 4
+        Label:
+            text: "-"
+            size_hint: None, None
+            pos_hint: {'center_x': .5, "center_y": .5}
+            width: 40
+        DateEnd:
+            id: datend
+            font_size: 20
+            text: "No seleccionado!"
+            size_hint: None, None
+            size: self.texture_size
+            padding: 4
+    Label:
+        size_hint: None, None
+        height: 10
+        index: 0
 
-
+<AdventureButton>:
+    size_hint: None, None
+    width: 250
+    pos_hint: {'center_x': .5, 'top': 0.15}

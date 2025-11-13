@@ -57,17 +57,17 @@
   },
   {
     "id": 9,
-    "nombre": "Tefi, la mecánica",
-    "descripcion": "El primer juguete que Tefi tuvo en la infancia fue una llave inglesa; siempre estuvo muy unida a su padre y desde que este falleció en los sucesos de la primera oleada no ha sido la misma. Ahora lucha junto a tu grupo para encontrar la cura al virus.",
+    "nombre": "Marie, la mecánica",
+    "descripcion": "El primer juguete que Marie tuvo en la infancia fue una llave inglesa; siempre estuvo muy unida a su padre y desde que este falleció en los sucesos de la primera oleada no ha sido la misma. Ahora lucha junto a tu grupo para encontrar la cura al virus.",
     "tipo": ["Refugio"],
     "complementario": ["Llave inglesa de papá"]
   },
   {
     "id": 10,
     "nombre": "Llave inglesa de papá",
-    "descripcion": "El primer juguete que tuvo Tefila dio su padre. Puede reparar cualquier cosa.",
+    "descripcion": "El primer juguete que tuvo Marie la dio su padre. Puede reparar cualquier cosa.",
     "tipo": ["Refugio"],
-    "complementario": ["Tefi, la mecánica"]
+    "complementario": ["Marie, la mecánica"]
   },
   {
     "id": 11,

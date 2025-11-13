@@ -34,7 +34,7 @@ class ResourceInfoLayoutP(StackLayout):
     complementary = StringProperty("")
 
 class ResourceP(FloatLayout):
-    def __init__(self, item):
+    def __init__(self, item, hoverable=True):
         super().__init__()
         self.icon = Image(source=f"assets/{item}.png")
         self.icon.size_hint = (None, None)
@@ -44,7 +44,8 @@ class ResourceP(FloatLayout):
         self.selected = 0
         self.id = item
         Window.bind(mouse_pos=self.on_move)
-        self.on_hover = setup_hover(self, 1, 0.8)
+        if hoverable:
+            self.on_hover = setup_hover(self, 1, 0.8)
     
     hovered = False
 
@@ -78,8 +79,12 @@ class ResourceP(FloatLayout):
                 if i < len(resource["complementario"]) - 1:
                     comp += ", "
 
-            info.complementary = comp  
-            info.opacity = 1
+            info.complementary = comp
+            
+            calendar = appList().mycon.children[0]
+
+            if not calendar.collide_point(*pos):
+                info.opacity = 1
         else:
             if self.hovered:
                 info.opacity = 0
@@ -107,7 +112,7 @@ class ResourceP(FloatLayout):
     def on_touch_down(self, touch):
         if CurrentScreen.screen != 1:
             return
-        
+    
         if self.collide_point(*touch.pos):
             if not self.selected:
                 self.my_color = [0, 0.8, 0.6, 0.8]
