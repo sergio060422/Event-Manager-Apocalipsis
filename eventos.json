@@ -6,7 +6,7 @@
     "descripcion": "Nunca está de más salir un rato a estirar las piernas por los alrededores del refugio y eliminar algún que otro infectado por el camino, pero ten cuidado no te sigan al regresar!",
     "peligro": 2,
     "ubicacion": "Alrededores del refugio",
-    "necesita": [1, 2, 3, 4]
+    "necesita": [1, 2, 7, 8]
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@
     "descripcion": "De las profundidades del bunker abandonado surgen oleadas de infectados todos los días; ir allí y eliminar un poco de \"población\" disminuiría la probabilidad de un ataque masivo al refugio. Solo recuerda ir bien armado y con un compañero.",
     "peligro": 4,
     "ubicacion": "Bunker militar del sur",
-    "necesita": [1, 2, 3, 4, 5, 6, 18, 19, 20]
+    "necesita": [1, 2, 5, 6, 18, 19, 20]
   },
   {
     "id": 3,
@@ -24,7 +24,7 @@
     "descripcion": "Últimamente las carreteras cercanas al refugio se encuentran repletas de infectados, lo cual podría dificultar la ejecución de la huida en caso de emergencia. Hora de barrer toda la suciedad en ellas!",
     "peligro": 2,
     "ubicacion": "Carreteras cercanas al refugio",
-    "necesita": [1, 2, 18, 19, 20]
+    "necesita": [3, 4, 18, 19, 20]
   },
   {
     "id": 4,
@@ -33,7 +33,7 @@
     "descripcion": "Solo a los infectados les agrada que tu arma falle; por eso cada cierto tiempo debes darle mantenimiento a tus armas, hasta la navaja suiza lo necesita!",
     "peligro": 1,
     "ubicacion": "Cuarto de armamento",
-    "necesita": [1, 2, 3, 4]
+    "necesita": [1, 2, 15, 16]
   },
   {
     "id": 5,
@@ -42,7 +42,7 @@
     "descripcion": "Desde hoyos con púas hasta cuerdas decapitadoras, todo en este juego de la supervivencia vale. Amplía las trampas en tu refugio para aumentar tus probabilidades de supervivencia en caso de una invasión.",
     "peligro": 1,
     "ubicacion": "Patio exterior",
-    "necesita": [15, 16]
+    "necesita": [13, 14, 15, 16]
   },
   {
     "id": 6,
@@ -69,7 +69,7 @@
     "descripcion": "No basta con mantener puertas y ventanas cerradas si no cumplen su función. Repara las fisuras o tendrás visitantes inesperados en un abrir y cerrar de ojos.",
     "peligro": 1,
     "ubicacion": "Interior del refugio",
-    "necesita":[11, 12, 13, 14]
+    "necesita":[13, 14]
   },
   {
     "id": 9,
@@ -78,7 +78,7 @@
     "descripcion": "De nada sirve unas puertas sólidas si el agua que bebes está podrida. Cambia los filtros de H2O cada cierto tiempo y no tendrás infectados en tu refugio.",
     "peligro": 1,
     "ubicacion": "Modulo de purificacion",
-    "necesita": [1, 2, 9, 10, 11, 12, 15, 16]
+    "necesita": [9, 10, 11, 12]
   },
   {
     "id": 10,
@@ -87,7 +87,7 @@
     "descripcion": "Los recursos en el refugio no son ilimitados; hacer expediciones a supermercados abandonados es una buena manera de conseguir víveres, pero ten cuidado. Ese tipo de zonas que en el pasado eran ampliamente frecuentadas ahora también lo son.",
     "peligro": 3,
     "ubicacion": "Supermercados WaltMart",
-    "necesita": [3, 4, 6, 7, 15, 16, 17, 18]
+    "necesita": [3, 4, 5, 6, 15, 16, 17, 18]
   },
   {
     "id": 11,
@@ -96,7 +96,7 @@
     "descripcion": "La exploración no es una actividad muy bonita que digamos comparada a quedarse bajo la seguridad de las puertas del refugio, pero nunca se sabe qué podría aguardar para ti descubrir nuevos horizontes.",
     "peligro": 3,
     "ubicacion": "Fronteras de la ciudad",
-    "necesita": [1, 2, 3, 4, 18, 19, 20, 21, 22]
+    "necesita": [3, 4, 18, 19, 20, 21, 22]
   },
   {
     "id": 12,
@@ -105,7 +105,7 @@
     "descripcion": "Las colmenas son los epicentros de la infección, están plagadas de infectados; por lo tanto nadie se acerca ahí excepto nosotros. Eliminando estas colmenas la infección disminuye considerablemente aunque es una actividad sumamente riesgosa.",
     "peligro": 5,
     "ubicacion": "Area 0 de infeccion",
-    "necesita": [1, 2, 3, 4, 5, 6, 7, 8, 15, 16, 17, 18, 23, 24]
+    "necesita": [1, 2, 7, 8, 15, 16, 17, 18]
   },
   {
     "id": 13,
@@ -114,7 +114,7 @@
     "descripcion": "Las expediciones a hospitales abandonados son lugares excelentes para obtener medicinas y reactivos para el desarrollo de la cura; no te dejes engañar por sus batas blancas, están todos muertos.",
     "peligro": 4,
     "ubicacion": "Hospital abandonado",
-    "necesita": [1, 2, 3, 4, 15, 16, 17, 18]
+    "necesita": [3, 4, 15, 16, 17, 18]
   },
   {
     "id": 14,
@@ -123,7 +123,7 @@
     "descripcion": "La maquinaria necesaria para el funcionamiento del refugio requiere de piezas que no son nada fáciles de fabricar; sin embargo los depósitos de chatarra son minas de oro. Hazte de un buen manojo de materiales a \"bajo costo\".",
     "peligro": 2,
     "ubicacion": "Cementerio de autos",
-    "necesita": [1, 2, 17, 18, 22, 23]
+    "necesita": [1, 2, 17, 18, 23, 24]
   },
   {
     "id": 15,
@@ -132,6 +132,6 @@
     "descripcion": "Las expediciones de búsqueda de supervivientes son un gesto de humanidad, pero ten cuidado porque algunos intentarán aprovecharse de ti; lleva tu arma bien cargada.",
     "peligro": 4,
     "ubicacion": "Refugios Infectados",
-    "necesita": [3, 4, 17, 18, 21, 22] 
+    "necesita": [3, 4, 7, 8, 15, 16, 21, 22] 
   }
 ]

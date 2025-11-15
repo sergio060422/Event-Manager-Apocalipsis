@@ -162,6 +162,13 @@
             text_size: self.parent.width, None
             size_hint: None, None
             size: self.texture_size
+        Label:
+            markup: True
+            text: "[b] Cantidad: [/b]" + root.cuantity
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
 
     StackLayout:
         canvas.before:
@@ -172,7 +179,7 @@
                 size: self.size
 
         size_hint: None, None
-        size: 280, 180
+        size: 280, 110
         Label:
             markup: True
             text: "[b] Descripcion: [/b]" + root.description
@@ -189,7 +196,7 @@
                 size: self.size
         orientation: "bt-lr"
         size_hint: None, None
-        size: 280, 70
+        size: 280, 140
         Label:
             markup: True
             text: "[b] Complementario: [/b]" + root.complementary
@@ -197,7 +204,15 @@
             text_size: self.parent.width, None
             size_hint: None, None
             size: self.texture_size
-    
+        Label:
+            markup: True
+            text: "[b] Excluyente: [/b]" + root.exclude
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+
+        
 <ButtonAdvance>:
     canvas.before:
         Color:

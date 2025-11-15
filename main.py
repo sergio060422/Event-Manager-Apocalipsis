@@ -66,11 +66,12 @@ class Resource(FloatLayout):
         if self.collide_point(*pos):
             info.img_source = f"assets/{self.id}.png"
             info.name = resource["nombre"]
+            info.cuantity = str(resource["cantidad"])
             info.description = resource["descripcion"]
             info.complementary = resource["complementario"][0]
 
             infotype = ""
-                
+
             for i in range(len(resource["tipo"])):
                 infotype += resource["tipo"][i]
 
@@ -87,7 +88,8 @@ class Resource(FloatLayout):
                 if i < len(resource["complementario"]) - 1:
                     comp += ", "
 
-            info.complementary = comp  
+            info.complementary = comp
+            info.exclude = resource["excluyente"][0]  
             info.opacity = 1
         else:
             if self.hovered:
@@ -97,6 +99,7 @@ class Resource(FloatLayout):
     """
     funcion para la seleccion del evento 
     """
+    
     def add_resource(self):
         recurso = get_one(self.id)
       
@@ -156,8 +159,10 @@ class ResourceInfoLayout(StackLayout):
     img_source = StringProperty("assets/1.png")
     name = StringProperty("")
     type = StringProperty("")
+    cuantity = StringProperty("")
     description = StringProperty("")
     complementary = StringProperty("")
+    exclude = StringProperty("")
    
 """
 componente contenedor del inventario completo de recursos
