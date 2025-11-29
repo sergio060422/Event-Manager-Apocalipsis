@@ -197,7 +197,6 @@ class ResourceP(FloatLayout):
                 childSelected.delete.opacity = 0
                 
 
-
 class ResourceListP(StackLayout):
     def __init__(self):
         super().__init__()

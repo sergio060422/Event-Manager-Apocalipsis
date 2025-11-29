@@ -471,13 +471,19 @@ def manageAdventure(response, info, realTime):
     
     if response:
         current = readJson("current_event.json")[1]
-        
+        running = readJson("running_events.json") 
+
         if info != None:
             current["fechaInicio"] = [str(info[0].day), str(info[0].month), str(info[0].year)]
             current["fechaFin"] = [str(info[1].day), str(info[1].month), str(info[1].year)]
             current["tiempoInicio"] = [info[0].hour - 5, info[0].minute]
             current["tiempoFin"] = [info[1].hour - 5, info[1].minute]
             current["tiempoReal"] = [*realTime]
+            current["eventNum"] = Utils.eventCounter
+            Utils.eventCounter += 1
+        else:
+            current["eventNum"] = Utils.eventCounter
+            Utils.eventCounter += 1
 
         event = readJson("current_event.json")[0]
         title = "Aventura creada exitosamente!"

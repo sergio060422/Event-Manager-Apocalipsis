@@ -21,9 +21,27 @@ dg_colors = {
     5: [0.90,0.30,0.20,1]  
 }
 
+colors = ["#1A1B3A","#20214D","#262760","#2C2D73","#323386",
+          "#383999","#3E3FAC","#4445BF","#4A4BD2","#5051E5",
+          "#5A4FD9","#644CCF","#6E49C5","#7846BB","#8243B1"]
+
+colors = [
+    "#A3C4BC", "#D5E1DF", "#F2D7B6", "#C9BBCF", "#BFD8B8",
+    "#E6CFC7", "#C2D4DD", "#F6EAC2", "#D4A5A5", "#B4C6A6",
+    "#EAD9D1", "#C3CEDA", "#D7C8B4", "#B8B8D1", "#D0E1D4"
+]
+colors = [
+    "#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F",
+    "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC",
+    "#6A9FB5", "#F4A259", "#D95F02", "#66A61E", "#E6AB02"
+]
+
+
+
 class Utils:
     isSelected = False
     isDismiss = True
+    eventCounter = 1
 
 class Disable:
     value = False

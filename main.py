@@ -261,7 +261,7 @@ class Main(App):
 def cleanJSON(*args):
     writeJson("recursos_seleccionados.json", [])
     writeJson("recursos_seleccionados_event.json", [])
-    #writeJson("running_events.json", [])
+    writeJson("running_events.json", [])
 
 Window.bind(on_request_close=cleanJSON)
 Builder.load_file("calendar_widget.kv")    

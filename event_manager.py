@@ -4,7 +4,7 @@ from utilities import *
 import datetime
 
 sg1 = "por favor verifique que los valores seleccionados sean correctos!"
-sg2 = "su evento debe tener una duracion de al menos 1 minuto!"
+sg2 = "su aventura debe tener una duracion de al menos 24 horas!"
 
 def setEvent(event):
     writeJson('current_event.json', [event])
@@ -15,7 +15,7 @@ def validDate(Ini, End, TimeIni, TimeEnd):
     hi, mi = TimeIni[0], TimeIni[1]
     he, me = TimeEnd[0], TimeEnd[1]
     start, end = 0, 0
-    
+    td = 0
     try:
         if len(hi + mi + he + me) > 8:
             raise IndexError()
@@ -30,7 +30,10 @@ def validDate(Ini, End, TimeIni, TimeEnd):
             raise IndexError()
         if mi < 0 or mi > 59 or me < 0 or me > 59:
             raise IndexError()
-        if start >= end: 
+        
+        td = dt.datetime(int(Ini[2]), int(Ini[1]), int(Ini[0]) + 1, hi, mi).timestamp()
+        
+        if td > end: 
             raise Exception()
           
     except Exception as e:
@@ -130,7 +133,7 @@ def joinTime(event):
     ini = event["tiempoReal"][0]
     end = event["tiempoReal"][1]
     time = end - ini
-    default = getDate(1, 1, 2025)
+    default = getDate(1, 1, 2077)
     
     if verifyInterval(event, default, default + time):
         return (default, default + time)

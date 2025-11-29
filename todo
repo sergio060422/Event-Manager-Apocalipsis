@@ -23,3 +23,4 @@ vy/_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
 #hacer el bind de el dropdown de eventos
 #cambiar estilo de ventana de joinHole
 #funcion para disable
+#limites

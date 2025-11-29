@@ -105,8 +105,8 @@ class TotalCalendar(BoxLayout):
     def __init__(self, flag):
         super().__init__()
         self.currentMonth = 1
-        self.currentYear = 2025
-        self.calendar = Calendar(1, 2025)
+        self.currentYear = 2077
+        self.calendar = Calendar(1, 2077)
         self.info = Info()
         self.buttons = ButtonContainer()
         self.flag = flag
@@ -115,16 +115,18 @@ class TotalCalendar(BoxLayout):
         self.add_widget(self.buttons)
 
     def update(self, type):
+        if type and self.currentYear == 2222:
+            return
         if type:
             self.currentMonth %= 12
             self.currentMonth += 1
             self.currentYear += (self.currentMonth == 1)
-        elif not (self.currentMonth == 1 and self.currentYear == 2025):
+        elif not (self.currentMonth == 1 and self.currentYear == 2077):
             self.currentMonth -= 1
             self.currentYear -= (self.currentMonth == 0)
             self.currentMonth = 12 if self.currentMonth == 0 else self.currentMonth
         
-        flag = True if self.currentMonth == 1 and self.currentYear == 2025 else False
+        flag = True if self.currentMonth == 1 and self.currentYear == 2077 else False
         
         for child in self.calendar.children:
             Window.unbind(mouse_pos=child.hover)
