@@ -114,7 +114,7 @@ class ShowEventWIndow(BoxLayout):
         self.datend = parseDate(event["fechaFin"]) + " - " + parseHour(event["tiempoFin"])
         self.eventNum = str(event["eventNum"])
 
-        self.img = f"assets/event_running_images/{event["eventID"]}.png"
+        self.img = event["imagen"]
         container = self.ids.typeContainer
 
         deleteAll(container)
@@ -268,7 +268,7 @@ class RunningEvent(BoxLayout):
 
     def assign(self, event):
         self.eventName.textName = event["titulo"]
-        self.image.source = f"assets/event_running_images/{event["eventID"]}.png"
+        self.image.source = event["imagen"]
         self.timeIni.ini = parseDate(event["fechaInicio"]) + " - " + parseHour(event["tiempoInicio"])
         self.timeEnd.end = parseDate(event["fechaFin"]) + " - " + parseHour(event["tiempoFin"])
         self.eventNum.enum = str(event["eventNum"])

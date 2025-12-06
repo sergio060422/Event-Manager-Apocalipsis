@@ -3,7 +3,7 @@ from kivy.app import App
 import json
 from kivy.uix.widget import Widget
 
-Places = []
+Places = set()
 HeightDescription = [0, 108, 130, 108, 86, 130, 108, 108, 86, 86, 130, 108, 130, 108, 130, 108, 108, 108, 108]
 WindowWidth, WindowHeight = 1280, 768
 danger_words = {
@@ -13,6 +13,13 @@ danger_words = {
     4: "Sal corriendo",
     5: "Muerte segura"
 }
+danger_words_inverse = {
+    "Pan comido": 1,
+    "Vigila tus espaldas": 2,
+    "Huele a peligro": 3,
+    "Sal corriendo": 4,
+    "Muerte segura": 5
+}
 dg_colors = {
     1: [0.18,0.80,0.44,1], 
     2: [0.60,0.88,0.60,1],  
@@ -20,24 +27,16 @@ dg_colors = {
     4: [1.00,0.48,0.27,1],  
     5: [0.90,0.30,0.20,1]  
 }
-
 colors = [
     "#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F",
     "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC",
     "#6A9FB5", "#F4A259", "#D95F02", "#66A61E", "#E6AB02",
-    "#8E6C8A", "#17BECF", "#BCBD22"
+    "#8E6C8A", "#17BECF", "#BCBD22", "#8A2BE3", "#2A9BE7"
 ]
-
 
 def deleteAll(parent):
     while len(parent.children):
         parent.remove_widget(parent.children[0])
-
-def getPlaces():
-    events = readJson("eventos.json")
-
-    for event in events:
-        Places.append(event["ubicacion"])
 
 def getOneByName(name, src):
     with open(src, 'r') as file:
@@ -53,6 +52,13 @@ def readJson(src):
 def writeJson(src, value):
     with open(src, 'w') as file:
         json.dump(value, file, indent=4)
+
+def getPlaces():
+    events = readJson("eventos.json")
+
+    if not len(Places):
+        for event in events:
+            Places.add(event["ubicacion"])
 
 def addToJson(src, value):
     data = readJson(src)
@@ -79,6 +85,7 @@ class finded:
 class Utils:
     isSelected = False
     isDismiss = True
+    spinner = False
     eventCounter = 1
     for e in readJson("running_events.json"):
         eventCounter = max(eventCounter, e["eventNum"] + 1)
@@ -105,7 +112,11 @@ def deleteChild(parent, child):
 def on_hover(widget, pos, opacity, screen, src, default, cursor, scroll, dropdown):
     if screen != CurrentScreen.screen or Disable.value:
         return
+    
     if dropdown != None and Utils.isDismiss:
+        return
+  
+    if not Utils.isDismiss and cursor == "ibeam":
         return
 
     if hasattr(widget, "selected") and widget.selected:

@@ -1,4 +1,7 @@
-d = {"1": 1, "6":2}
+def getChar(s):
+    for c in s.split(" "):
+        if c != "":
+            return True
+    return False
 
-for x in d:
-    print(x)
+print(getChar("a   "))

@@ -27,6 +27,7 @@ from event_manager import *
 from error import *
 from kivy.animation import Animation
 from utilities import *
+from editable_adventure import *
 
 class Manage:
     def get_all():
@@ -65,6 +66,10 @@ class Selector(DropDown):
         self.caller = caller
         self.evinfo = evinfo
         
+        e = Event(-1, self)
+        e.title = "-Aventura Personalizada-"
+        self.add_widget(e)
+
         for i in range(18):
             e = Event(i, self)
             e.title = Manage.get_one(i)["titulo"]
@@ -260,6 +265,8 @@ class EventInfo(BoxLayout):
         self.dateIni = self.ids.dateini
         self.dateEnd = self.ids.datend
         self.current = 0
+        self.childs = []
+        self.editable = None
 
     img = StringProperty("")
     type = StringProperty("")
@@ -274,47 +281,66 @@ class EventInfo(BoxLayout):
         4: "Sal corriendo",
         5: "Muerte segura"
     }
+
     def update(self, i):
         e = Manage.get_one(i)
-        setEvent(e)
+
+        if self.current == -1:
+            for child in self.childs:
+                self.add_widget(child)
+
         self.current = i
 
         for x in list(self.need.children):
             self.need.remove_widget(x)
+   
+        if i == -1:
+            createEditableAdventure(self)
+            setEvent(e, True, self)
+        else:
+            setEvent(e)
+            if self.editable != None:
+                self.remove_widget(self.editable)
+                self.editable = None
 
-        val = 0
-        for x in e["necesita"]:
-            resource = ResourceP(x, False, False)
-            resource.my_color = [0.5, 0.5, 0.5, 1]
-            resource.icon.size = (50, 50)
-            resource.on_move = None
-            resource.on_touch_down = lambda x: None
-            self.need.add_widget(resource)
+            for x in e["necesita"]:
+                resource = ResourceP(x, False, False)
+                resource.my_color = [0.5, 0.5, 0.5, 1]
+                resource.icon.size = (50, 50)
+                resource.on_move = None
+                resource.on_touch_down = lambda x: None
+                self.need.add_widget(resource)
 
-        self.need.height = ((len(e["necesita"]) // 6) + (1 and (len(e["necesita"]) % 6 != 0))) * 65
-        self.ids.description.text = e["descripcion"]
-        self.img = f"assets/event_images/{i + 1}.png"
-        self.type = ""
+            self.need.height = ((len(e["necesita"]) // 6) + (1 and (len(e["necesita"]) % 6 != 0))) * 65
+            self.ids.description.text = e["descripcion"]
+            self.img = f"assets/event_images/{i + 1}.png"
+            self.type = ""
+            
+            for i in e["tipo"]:
+                if i == "Defensa":
+                    self.type += "• ⛨ Defensa \n"
+                if i == "Refugio":
+                    self.type += "• 🏠Refugio \n"
+                if i == "Supervivencia":
+                    self.type += "• 🏕️ Supervivencia \n"
+
+            dg = e["peligro"]
+            self.danger = "-" + danger_words[dg] + "-"
+            self.danger_color = dg_colors[dg]
+            self.place = "• " + e["ubicacion"]
+            self.height = 500 + self.need.height + HeightDescription[e["id"]] + 75
         
-        for i in e["tipo"]:
-            if i == "Defensa":
-                self.type += "• ⛨ Defensa \n"
-            if i == "Refugio":
-                self.type += "• 🏠Refugio \n"
-            if i == "Supervivencia":
-                self.type += "• 🏕️ Supervivencia \n"
-
-        dg = e["peligro"]
-        self.danger = "-" + danger_words[dg] + "-"
-        self.danger_color = dg_colors[dg]
-        self.place = "• " + e["ubicacion"]
-        self.height = 500 + self.need.height + HeightDescription[e["id"]] + 75
-
     def updateIni(self, value):
-        self.dateIni.text = value
+        if self.editable != None:
+            self.editable.dateIni.text = value
+        else:
+            self.dateIni.text = value
 
     def updateEnd(self, value):
-        self.dateEnd.text = value
+        if self.editable != None:
+            self.editable.dateEnd.text = value
+        else:
+            self.dateEnd.text = value
 
 class ScrollEventInfo(ScrollView):
     def __init__(self):
@@ -392,13 +418,11 @@ class ListAdventures(ButtonBehavior, Image):
         if self.collide_point(*touch.pos):
             apps = appList()
             apps.events.scrollList.running.update()
-            writeJson("recursos_seleccionados_event.json", [])
 
             screenParent = appList().screenParent
             CurrentScreen.before = (CurrentScreen.screen, screenParent.current)
             CurrentScreen.screen = 2
             Window.set_system_cursor("arrow")
-            apps.mycon.layo.rlist.update("recursos_seleccionados.json")
             screenParent.transition = SlideTransition(duration=0.5, direction="down")
             screenParent.current = "events"
 
@@ -414,15 +438,16 @@ class AdventureButton(ButtonBehavior, Image):
         if self.collide_point(*touch.pos) and not Disable.value:
             join_child(appList().mycon, "EventInfo")
             eventInfo = finded.ans
-    
-            dateIni = eventInfo.dateIni.text
-            dateEnd = eventInfo.dateEnd.text
-            timeIni = (eventInfo.timeIni[0].text, eventInfo.timeIni[1].text)
-            timeEnd = (eventInfo.timeEnd[0].text, eventInfo.timeEnd[1].text)
-            dateValid = validDate(dateIni, dateEnd, timeIni, timeEnd)
+
+            dateValid = checkEvent(eventInfo)
             resourceValid = validResources()
             
-            if type(dateValid) != tuple or type(resourceValid) != list:
+            validDate = validateEventInfo()
+            if type(validDate) != bool:
+                pos = (WindowWidth - 400, WindowHeight - 140)
+                showMessage(Error, "Error", validDate[1], validDate[2], pos, short=True)
+
+            elif type(dateValid) != tuple or type(resourceValid) != list:
                 title, body = "No es posible crear la aventura!", ""
 
                 if type(dateValid) != tuple:   
@@ -475,7 +500,6 @@ def manageAdventure(response, info, realTime):
     
     if response:
         current = readJson("current_event.json")[1]
-        running = readJson("running_events.json") 
 
         if info != None:
             current["fechaInicio"] = [str(info[0].day), str(info[0].month), str(info[0].year)]
@@ -511,7 +535,7 @@ def manageAdventure(response, info, realTime):
 class Success:
     value = 0
 
-def showMessage(classMessage, name, title, body, position, alter=None):
+def showMessage(classMessage, name, title, body, position, alter=None, short=False):
     mainConfig = appList().mycon if alter == None else alter
 
     if mainConfig.children[0].__class__.__name__ == name and name != "Message":
@@ -523,6 +547,9 @@ def showMessage(classMessage, name, title, body, position, alter=None):
 
     message = classMessage(title, body)
 
+    if short:
+        message.height = 140
+  
     message.opacity = 1
     message.pos = position
     mainConfig.add_widget(message)
@@ -544,6 +571,7 @@ class MainConfig(FloatLayout):
     def __init__(self):
         super().__init__()
         self.hole = None
+        self.fileSelector = None
         self.img = Image(source="assets/background_config.png")
         self.add_widget(self.img)
         self.backbutton = Backbutton()

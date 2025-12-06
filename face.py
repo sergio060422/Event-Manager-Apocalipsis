@@ -127,8 +127,41 @@ kv = '''
             width: 1.01
 
             
+<NameContainer>:
+    size_hint: None, None
+    pos_hint: {'x': 0, 'y': 0}
+    width: 300
+    padding: 10
+    orientation: "vertical"
+    spacing: 8
 
-
+    Label:
+        size_hint: None, None
+        size: self.texture_size
+        text: "Te llamabas:"
+        font_size: 28
+        font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
+        
+    NameInput:
+        id: nameValue
+        background_color: 0, 0, 0, 0
+        cursor_color: 1, 1, 1, 1
+        foreground_color: 1, 1, 1, 1
+        size_hint_y: None
+        height: 36
+        font_size: 18
+        hovered: False
+        hint_text: "Elige un nombre"
+        multiline: False
+        canvas.after:
+            Color: 
+                rgba: 1, 1, 1, 1
+            Line:
+                points: (self.x, self.y + 4, 200, self.y + 4)
+                width: 1
+        
+    Label:
+        index: 0
 '''
 
 Builder.load_string(kv)
@@ -137,6 +170,11 @@ def on_start(start, touch):
     if start.collide_point(*touch.pos) and not Disable.value:
         screenParent = appList().screenParent
         Window.set_system_cursor('arrow')
+        menu = appList().menu
+        join_child(menu, "PlayerLayout")
+        nameLabel = finded.ans.ids.inputName
+        name = appList().mainMenu.name.ids.nameValue
+        nameLabel.text = name.text
         CurrentScreen.screen = 0
         screenParent.current = "main"
         screenParent.transition = SlideTransition(duration=0.5, direction="right")
@@ -145,6 +183,11 @@ class Path(Label):
     def __init__(self):
         super().__init__()
        
+def to_close(main, touch):
+    selector = main.fileSelector
+    
+    if selector != None and not selector.collide_point(*touch.pos):
+        closeSelector(main)
 
 class SelectionButton(Button):
     def __init__(self, type):
@@ -155,6 +198,9 @@ class SelectionButton(Button):
     hovered = False
 
     def on_touch_down(self, touch):
+        to_close(appList().mycon, touch)
+        to_close(appList().mainMenu, touch)
+
         if self.collide_point(*touch.pos):
             from configuracion import showMessage
             from error import Message, Error
@@ -201,6 +247,28 @@ class SelectionButton(Button):
                     showMessage(Message, "Message", title, body, pos, main)
                     closeSelector(main)
 
+            if self.type == "image":
+                main = appList().mycon
+                join_child(main, "PathImage")
+                pathImage = finded.ans
+                pathImage.text = self.parent.path.text
+                
+                try:
+                    join_child(main, "AdventureImage")
+                    img = finded.ans
+                    img.source = pathImage.text
+                except:
+                    title = "Error al cargar la imagen!"
+                    body = "Intentelo de nuevo y compruebe que la imagen no este danada"
+                    pos = (WindowWidth - 390, WindowHeight - 185)
+                    showMessage(Error, "Error", title, body, pos, main)
+                else:
+                    title = "Imagen cargada"
+                    body = f"Se cargo la imagen correctamente" 
+                    pos = (WindowWidth - 390, 0)
+                    showMessage(Message, "Message", title, body, pos, main)
+                    closeSelector(main)
+
 class BottomBar(BoxLayout):
     def __init__(self, type):
         super().__init__()
@@ -215,9 +283,10 @@ class Title(Label):
         
         if type == "load":
             self.text = "Seleccione el archivo JSON"
-        else:
+        if type == "save":
             self.text = "Seleccione el directorio donde guardar su archivo"
-
+        if type == "image":
+            self.text = "Seleccione la imagen de su aventura"
 
 def selectFile(selected):
     eventList = appList().events.scrollList.running
@@ -227,15 +296,21 @@ class FileSelector(FileChooserIconView):
     def __init__(self, type):
         super().__init__()
         self.path = '.'
-        self.filters = ['*.json'] if type == "load" else ['/']
+        if type == "load":
+            self.filters = ['*.json']
+        if type == "save":
+            self.filters = ["/"]
+        if type == "image":
+            self.filters = ["*.png", "*.jpg"]
         self.multiselect = False
+        self.type = type
         self.bind(path=self.update_path)
         
-        if type == "load":
+        if type != "saves":
             self.bind(selection=self.update_path)
         
     def update_path(self, *args):
-        main = appList().mainMenu
+        main = appList().mainMenu if self.type != "image" else appList().mycon
         join_child(main, "Path")
         pathLabel = finded.ans
         if type(pathLabel) != int:
@@ -261,35 +336,10 @@ def closeSelector(main):
     main.remove_widget(main.fileSelector)
     main.fileSelector = None
     
-
-def on_press(button, touch, type):
-    main = appList()
-    selector = None
-
-    if main != None:
+def on_press(button, touch, type):        
+    if button.collide_point(*touch.pos) and not Disable.value:
         main = appList().mainMenu
-        selector = main.fileSelector
-
-    if button.collide_point(*touch.pos):        
-        if button.collide_point(*touch.pos) and not Disable.value:
-            openSelector(main, type)
-    elif selector != None and selector.type == type and not selector.collide_point(*touch.pos):
-        closeSelector(main)
-   
-def on_press_save(button, touch, type):
-    main = appList()
-    selector = None
-
-    if main != None:
-        main = appList().mainMenu
-        selector = main.fileSelector
-    
-    if button.collide_point(*touch.pos):    
-        if button.collide_point(*touch.pos) and not Disable.value:
-            openSelector(main, type)
-
-    elif selector != None and selector.type == type and not selector.collide_point(*touch.pos):
-        closeSelector(main)
+        openSelector(main, type)
 
 def close_program(exit, touch):
     if exit.collide_point(*touch.pos):
@@ -308,10 +358,10 @@ class Option(ButtonBehavior, Image):
         if src == "load.png":
             self.on_touch_down = lambda touch: on_press(self, touch, "load")
         if src == "save.png":
-            self.on_touch_down = lambda touch: on_press_save(self, touch, "save")
+            self.on_touch_down = lambda touch: on_press(self, touch, "save")
         if src == "exit.png":
             self.on_touch_down = lambda touch: close_program(self, touch)
-    
+
     hovered = False
 
 def InitAnimation(widget, delay):
@@ -320,6 +370,19 @@ def InitAnimation(widget, delay):
     seq = delay + anima
     seq.start(widget)
 
+class NameInput(TextInput):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        setup_hover(self, 3, cursor="ibeam")
+
+    def keyboard_on_textinput(self, window, text): 
+        if len(self.text) < 16:
+            self.text += text
+
+class NameContainer(BoxLayout):
+    def __init__(self):
+        super().__init__()
+        
 class Menu(BoxLayout):
     def __init__(self):
         super().__init__()
@@ -338,7 +401,8 @@ class Container(FloatLayout):
         self.background = Image(source="assets/background_face.png")
         self.add_widget(self.background)
         self.add_widget(Menu())
+        self.name = NameContainer()
+        self.add_widget(self.name)
 
     fileSelector = None
 
-  

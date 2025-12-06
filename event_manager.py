@@ -6,8 +6,63 @@ import datetime
 sg1 = "por favor verifique que los valores seleccionados sean correctos!"
 sg2 = "su aventura debe tener una duracion de al menos 24 horas!"
 
-def setEvent(event):
+def setEvent(event, isEditable = False, eventInfo = None):
+    if isEditable:
+        event["id"] = -1
+        event["necesita"] = []
+
     writeJson('current_event.json', [event])
+
+def getChar(s):
+    for c in s.split(" "):
+        if c != "":
+            return True
+    return False
+
+def validateEventInfo():
+    current = readJson("current_event.json")[0]
+    resources = readJson("recursos_seleccionados_event.json")
+    title, body = "Error al crear la aventura", ""
+
+    if getChar(current["titulo"]) == False:
+        body = "Debe escoger un nombre no vacio para su aventura"
+        return (False, title, body)
+    if getChar(current["descripcion"]) == False:
+        body = "Debe escoger una descripcion no vacia para su aventura"
+        return (False, title, body)
+    if len(resources) == 0:
+        body = "Su aventura debe tener al menos un recurso asignado"
+        return (False, title, body)
+
+    return True
+
+def checkEvent(eventInfo):
+    dateValid = None
+
+    if eventInfo.editable == None:
+        dateIni = eventInfo.dateIni.text
+        dateEnd = eventInfo.dateEnd.text
+        timeIni = (eventInfo.timeIni[0].text, eventInfo.timeIni[1].text)
+        timeEnd = (eventInfo.timeEnd[0].text, eventInfo.timeEnd[1].text)
+        dateValid = validDate(dateIni, dateEnd, timeIni, timeEnd)
+    else:
+        edit = eventInfo.editable
+        dateIni = edit.dateIni.text
+        dateEnd = edit.dateEnd.text
+        timeIni = (edit.timeIni[0].text, edit.timeIni[1].text)
+        timeEnd = (edit.timeEnd[0].text, edit.timeEnd[1].text)
+        dateValid = validDate(dateIni, dateEnd, timeIni, timeEnd)
+        
+        current = readJson("current_event.json")[0]
+        current["titulo"] = edit.ids.name.text
+        current["tipo"] = [edit.ids.type.text]
+        current["descripcion"] = edit.ids.description.text
+        current["peligro"] = danger_words_inverse[edit.ids.danger.text]
+        current["ubicacion"] = edit.ids.place.text
+        
+        writeJson("current_event.json", [current])
+
+    return dateValid
 
 def validDate(Ini, End, TimeIni, TimeEnd):
     Ini = Ini.split("/")
@@ -69,7 +124,6 @@ def validResources():
                 break
         
         if not flag:
-            print(resource["nombre"])
             return "verifique que cada recurso este seleccionado junto con su complementario!"
  
 
@@ -152,6 +206,13 @@ def mergeInformation(Date, Resources):
     event["fechaFin"] = Date[1][1]
     event["tiempoInicio"] = Date[2][0]
     event["tiempoFin"] = Date[2][1]
+    
+    if event["id"] == -1:
+        main = appList().mycon
+        join_child(main, "PathImage")
+        event["imagen"] = finded.ans.text
+    else:
+        event["imagen"] = f"assets/event_running_images/{event["id"]}.png"
     
     return event    
 
