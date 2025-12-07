@@ -2,27 +2,22 @@ from kivy.config import Config
 Config.set('graphics', 'resizable', '0')
 Config.set('graphics', 'width', '1280')
 Config.set('graphics', 'height', '768')
+Config.set('input', 'mouse', 'mouse,disable_multitouch')
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.uix.widget import Canvas
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import ListProperty
 from kivy.core.window import Window
 from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
-from configuracion import MainConfig, Backbutton, Show, showAnimation, CommandAdventure, FloatContainer, ListAdventures
-import json
+from kivy.uix.screenmanager import Screen, ScreenManager
+from configuracion import MainConfig, Backbutton, CommandAdventure, FloatContainer, ListAdventures
 from kivy.lang import Builder
-from kivy.clock import Clock
-from confi_info_class import ResourceInfoLayoutP, ResourcesLayoutP, ResourceP
 from utilities import *
-from calendar_widget import TotalCalendar
 from events import MainEventContainter
 from face import Container
 
@@ -104,23 +99,15 @@ class Resource(FloatLayout):
     
     def add_resource(self):
         recurso = get_one(self.id)
-      
-        with open("recursos_seleccionados.json", "r") as data:
-            data = json.load(data)
-            data.append(recurso)
-            
-        with open("recursos_seleccionados.json", "w") as file:
-            json.dump(data, file, indent=4)
+        data = readJson("code/recursos_seleccionados.json")
+        data.append(recurso)
+        writeJson("code/recursos_seleccionados.json", data)
 
     def quit_resource(self):
         recurso = get_one(self.id)
-        
-        with open("recursos_seleccionados.json", "r") as data:
-            data = json.load(data)
-            data.remove(recurso)
-            
-        with open("recursos_seleccionados.json", "w") as file:
-            json.dump(data, file, indent=4)
+        data = readJson("code/recursos_seleccionados.json")
+        data.remove(recurso)
+        writeJson("code/recursos_seleccionados.json", data)
 
     def on_touch_down(self, touch):
         if CurrentScreen.screen != 0:
@@ -222,12 +209,8 @@ class BackButtonMain(Backbutton):
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos) and not Disable.value:
             CurrentScreen.screen = 3
-            screenParent = appList().screenParent
-            screenParent.transition = SlideTransition(duration=0.5, direction="right")
-            screenParent.current = "menu"
-            screenParent.transition = SlideTransition(duration=0.5, direction="left")
-
-
+            transition("menu", 0.5, "right")
+    
 class ButtonAdvance(ButtonBehavior, Image):
     def __init__(self):
         super().__init__()
@@ -236,22 +219,13 @@ class ButtonAdvance(ButtonBehavior, Image):
     hovered = False
 
     def on_press(self):
-        data = []
-        CurrentScreen.screen = 1
+        data = readJson("code/recursos_seleccionados.json")
+        writeJson("code/recursos_seleccionados_event.json", data)
 
-        with open("recursos_seleccionados.json", "r") as data:
-            data = json.load(data)
-        
-        with open("recursos_seleccionados_event.json", "w") as file:
-            json.dump(data, file, indent=4)
-        
-        screenParent = appList().screenParent
-        appList().mycon.layo.rlist.update("recursos_seleccionados.json")
-        Window.set_system_cursor('arrow')
-        screenParent.transition = SlideTransition(duration=0.5, direction="left")
-        screenParent.current = "config"
-        screenParent.transition = SlideTransition(duration=0.5, direction="right")
-    
+        CurrentScreen.screen = 1
+        appList().mycon.layo.rlist.update("code/recursos_seleccionados.json")
+        transition("config", 0.5, "left")
+       
 class ScreenChild(Screen):
     def __init__(self, nombre, contenido):
         super().__init__()
@@ -265,7 +239,6 @@ class ScreenParent(ScreenManager):
         self.add_widget(ScreenChild("main", appList().menu))
         self.add_widget(ScreenChild("config", appList().mycon))
         self.add_widget(ScreenChild("events", appList().events))
-        self.transition = SlideTransition(duration=0.5, direction="left")
 
 """
 cuerpo de la aplicacion
@@ -280,12 +253,12 @@ class Main(App):
         return self.screenParent
 
 def cleanJSON(*args):
-    writeJson("recursos_seleccionados.json", [])
-    writeJson("recursos_seleccionados_event.json", [])
+    writeJson("code/recursos_seleccionados.json", [])
+    writeJson("code/recursos_seleccionados_event.json", [])
 
 Window.bind(on_request_close=cleanJSON)
-Builder.load_file("calendar_widget.kv")    
-Builder.load_file("configuracion.kv")
-Builder.load_file("confi_info_class.kv")
+Builder.load_file("code/calendar_widget.kv")    
+Builder.load_file("code/configuracion.kv")
+Builder.load_file("code/confi_info_class.kv")
 
 Main().run()

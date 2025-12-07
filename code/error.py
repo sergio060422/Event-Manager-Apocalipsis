@@ -1,29 +1,11 @@
-from kivy.config import Config
-Config.set('graphics', 'resizable', '0')
-Config.set('graphics', 'width', '1280')
-Config.set('graphics', 'height', '768')
-from kivy.app import App
 from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
-from kivy.uix.image import Image
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.uix.widget import Canvas
-from kivy.uix.stacklayout import StackLayout
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import ListProperty
 from kivy.core.window import Window
-from kivy.properties import BooleanProperty
-from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
-import json
 from kivy.lang import Builder
-from kivy.uix.dropdown import DropDown
 from utilities import *
-from kivy.uix.scrollview import ScrollView
 from kivy.factory import Factory
 from kivy.uix.button import Button
+from kivy.uix.popup import Popup
 
 kv = '''
 <Error>:
@@ -126,8 +108,6 @@ kv = '''
 
 Builder.load_string(kv)
 
-from kivy.uix.popup import Popup
-
 class Error(Popup):
     def __init__(self, title, text):
         super().__init__()
@@ -135,8 +115,8 @@ class Error(Popup):
         self.title_size = 24
         self.size_hint = (None, None)
         self.size = (400, 190)
-        join_child(self.children[0].children[0], "Label")
-        finded.ans.text = text
+        child = join_child(self.children[0].children[0], "Label")
+        child.text = text
     
     def on_touch_down(self, touch):
         self.dismiss = True

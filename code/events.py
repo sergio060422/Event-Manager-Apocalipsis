@@ -1,30 +1,20 @@
-from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.uix.widget import Canvas
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import ListProperty
 from kivy.core.window import Window
-from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
-import json
+from kivy.uix.screenmanager import SlideTransition
 from kivy.lang import Builder
-from kivy.uix.dropdown import DropDown
-from code.utilities import *
+from utilities import *
 from kivy.uix.scrollview import ScrollView
-from kivy.factory import Factory
-from kivy.uix.button import Button
-from code import ConfiEvent
-import datetime as dt
 from kivy.animation import Animation
-from code.plot import createGraph, plt
-from code.event_manager import *
+from plot import createGraph, plt
+from event_manager import *
 
 class OpenEvent(ButtonBehavior, Image):
     def __init__(self, **kwargs):
@@ -66,10 +56,15 @@ class DeleteButton(ButtonBehavior, Image):
             event = self.parent.parent.parent
             running = appList().events.scrollList.running
             running.remove_widget(event)
-            runningEventJson = readJson("running_events.json")
+            runningEventJson = readJson("code/running_events.json")
             runningEventJson.remove(event.eventJson)
-            writeJson("running_events.json", runningEventJson)
+            writeJson("code/running_events.json", runningEventJson)
             resizeList(running)
+
+def get_resource():
+    from confi_info_class import ResourceP
+
+    return ResourceP
 
 class ShowEventWIndow(BoxLayout):
     def __init__(self):
@@ -85,19 +80,20 @@ class ShowEventWIndow(BoxLayout):
     dg_color = ListProperty([0, 0, 0, 0])
     eventNum = StringProperty("")
 
+
     def update(self, event):
         self.name = event["titulo"]
         self.description = event["descripcion"]
         
-        from code.confi_info_class import ResourceP
+        Resource = get_resource()
         parent = self.ids.need
         parent.height = ((len(event["necesita"]) // 6) + (1 and (len(event["necesita"]) % 6 != 0))) * 65
         
         deleteAll(parent)
 
         for r in event["recursos"]:
-            resource = ResourceP(r[0], True, False)
-            resource.cuantity.text = str(r[1])
+            resource = Resource(r[0], True, False)
+            resource.cuantity.text = str(event["recursos"][r])
             resource.my_color = [0.5, 0.5, 0.5, 1]
             resource.icon.size = (50, 50)
             resource.on_move = None
@@ -277,7 +273,7 @@ class RunningEventList(StackLayout):
     def __init__(self):
         super().__init__()
         self.vis = False
-        value = readJson("running_events.json")
+        value = readJson("code/running_events.json")
         self.update(True, value)
 
     def update(self, load=False, value=None):
@@ -345,9 +341,7 @@ class Back(Image):
             infoScreen = CurrentScreen.before
             screenParent = appList().screenParent
             CurrentScreen.screen = infoScreen[0]
-            Window.set_system_cursor("arrow")
-            screenParent.transition = SlideTransition(duration=0.5, direction="up")
-            screenParent.current = infoScreen[1]
+            transition(infoScreen[1], 0.5, "up")
             
             if infoScreen[1] == "main":
                 screenParent.transition = SlideTransition(duration=0.5, direction="left")

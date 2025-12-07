@@ -2,26 +2,13 @@ from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.uix.widget import Canvas
-from kivy.uix.stacklayout import StackLayout
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import ListProperty
 from kivy.core.window import Window
-from kivy.properties import BooleanProperty
-from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
-from configuracion import MainConfig, Show, showAnimation, CommandAdventure, FloatContainer, ListAdventures
-import json
+from kivy.uix.screenmanager import SlideTransition
 from kivy.lang import Builder
-from kivy.clock import Clock
-from confi_info_class import ResourceInfoLayoutP, ResourcesLayoutP, ResourceP
 from utilities import *
-from calendar_widget import TotalCalendar
-from events import MainEventContainter
 from kivy.animation import Animation
-from kivy.uix.filechooser import FileChooserIconView, FileChooserLayout
-from kivy.uix.popup import Popup
+from kivy.uix.filechooser import FileChooserIconView
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 import os, sys, shutil
@@ -168,17 +155,15 @@ Builder.load_string(kv)
 
 def on_start(start, touch):
     if start.collide_point(*touch.pos) and not Disable.value:
-        screenParent = appList().screenParent
         Window.set_system_cursor('arrow')
         menu = appList().menu
-        join_child(menu, "PlayerLayout")
-        nameLabel = finded.ans.ids.inputName
+        player = join_child(menu, "PlayerLayout")
+        nameLabel = player.ids.inputName
         name = appList().mainMenu.name.ids.nameValue
         nameLabel.text = name.text
         CurrentScreen.screen = 0
-        screenParent.current = "main"
-        screenParent.transition = SlideTransition(duration=0.5, direction="right")
-
+        transition("main", 0.5, "left")
+       
 class Path(Label):
     def __init__(self):
         super().__init__()
@@ -207,8 +192,8 @@ class SelectionButton(Button):
             main = appList().mainMenu
 
             if self.type == "load":    
-                join_child(main, "FileSelector")
-                path = finded.ans.selection
+                selector = join_child(main, "FileSelector")
+                path = selector.selection
 
                 if len(path) > 0:
                     file = readJson(path[0])
@@ -221,7 +206,7 @@ class SelectionButton(Button):
                         showMessage(Error, "Error", title, body, pos, main)
                     else:
                         closeSelector(main)
-                        writeJson("running_events.json", file)                       
+                        writeJson("code/running_events.json", file)                       
                         title = "Archivo cargado exitosamente!"
                         body = f"Se cargaron {len(file)} aventuras"
                         pos = (WindowWidth - 390, 0)
@@ -229,13 +214,14 @@ class SelectionButton(Button):
             
             if self.type == "save":
                 file = os.path.join(os.path.dirname(sys.argv[0]), "running_events.json")
-                join_child(main, "Path")
-                dir = os.path.join(finded.ans.text)
-                running = readJson("running_events.json")
+                child = join_child(main, "Path")
+                dir = os.path.join(child.text)
+                running = readJson("code/running_events.json")
 
                 try:
                     shutil.copy(file, dir)
                 except Exception as error:
+                    print(error)
                     title = "Error al guardar el archivo!"
                     body = "Intentelo de nuevo y compruebe que tenga permiso para copiar archivos en el directorio seleccionado"
                     pos = (WindowWidth - 390, WindowHeight - 185)
@@ -249,13 +235,11 @@ class SelectionButton(Button):
 
             if self.type == "image":
                 main = appList().mycon
-                join_child(main, "PathImage")
-                pathImage = finded.ans
+                pathImage = join_child(main, "PathImage")
                 pathImage.text = self.parent.path.text
                 
                 try:
-                    join_child(main, "AdventureImage")
-                    img = finded.ans
+                    img = join_child(main, "AdventureImage")
                     img.source = pathImage.text
                 except:
                     title = "Error al cargar la imagen!"
@@ -311,8 +295,8 @@ class FileSelector(FileChooserIconView):
         
     def update_path(self, *args):
         main = appList().mainMenu if self.type != "image" else appList().mycon
-        join_child(main, "Path")
-        pathLabel = finded.ans
+        pathLabel = join_child(main, "Path")
+        
         if type(pathLabel) != int:
             pathLabel.text = self.path if len(self.selection) == 0 else self.selection[0]
         

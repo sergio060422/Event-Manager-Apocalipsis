@@ -1,26 +1,19 @@
-from kivy.config import Config
-from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.uix.widget import Canvas
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import ListProperty
 from kivy.core.window import Window
-from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
 import json
 from confi_info_class import ResourcesLayoutP, ResourceInfoLayoutP, ResourceP
-from kivy.lang import Builder
 from kivy.uix.dropdown import DropDown
 from utilities import *
 from kivy.uix.scrollview import ScrollView
-from calendar_widget import TotalCalendar, getCalendar
+from calendar_widget import TotalCalendar
 from kivy.factory import Factory
 from kivy.uix.button import Button
 from event_manager import *
@@ -31,11 +24,11 @@ from editable_adventure import *
 
 class Manage:
     def get_all():
-        with open("eventos.json") as file:
+        with open("code/eventos.json") as file:
             return json.load(file)
         
     def get_one(id):
-         with open("eventos.json") as file:
+         with open("code/eventos.json") as file:
             return json.load(file)[id]
    
     def get_active():
@@ -230,27 +223,21 @@ class AddNeedButton(Button):
             
             for x in e["necesita"]:
                 recurso = get_one(x)
-        
-                with open("recursos_seleccionados_event.json", "r") as data:
-                    data = json.load(data)
-
+                data = readJson("code/recursos_seleccionados_event.json")
                 ignore = False
 
                 for i in data:
                     if i["id"] == recurso["id"]:
                         ignore = True             
 
-                if ignore:
-                    continue
+                if ignore: continue
 
-                with open("recursos_seleccionados_event.json", "w") as file:
-                    data.append(recurso)
-                    json.dump(data, file, indent=4)
-            
-            join_child(appList().mycon, "ResourceListP")
-            finded.ans.update("recursos_seleccionados_event.json")
+                data.append(recurso)
+                writeJson("code/recursos_seleccionados_event.json", data)
         
-                
+            child = join_child(appList().mycon, "ResourceListP")
+            child.update("code/recursos_seleccionados_event.json")
+        
     hovered = False
 
 Factory.register('AddNeedButton', AddNeedButton)        
@@ -386,10 +373,8 @@ class Backbutton(ButtonBehavior, Image):
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos) and not Disable.value:
             CurrentScreen.screen = 0
-            screenParent = appList().screenParent
-            screenParent.current = "main"
-            screenParent.transition = SlideTransition(duration=0.5, direction="left")
-
+            transition("main", 0.5, "right")
+            
 class Show(ButtonBehavior, Image):
     def __init__(self):
         super().__init__()
@@ -422,9 +407,7 @@ class ListAdventures(ButtonBehavior, Image):
             screenParent = appList().screenParent
             CurrentScreen.before = (CurrentScreen.screen, screenParent.current)
             CurrentScreen.screen = 2
-            Window.set_system_cursor("arrow")
-            screenParent.transition = SlideTransition(duration=0.5, direction="down")
-            screenParent.current = "events"
+            transition("events", 0.5, "down")
 
 class AdventureButton(ButtonBehavior, Image):
     def __init__(self):
@@ -436,8 +419,7 @@ class AdventureButton(ButtonBehavior, Image):
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos) and not Disable.value:
-            join_child(appList().mycon, "EventInfo")
-            eventInfo = finded.ans
+            eventInfo = join_child(appList().mycon, "EventInfo")
 
             dateValid = checkEvent(eventInfo)
             resourceValid = validResources()
@@ -461,14 +443,14 @@ class AdventureButton(ButtonBehavior, Image):
             else:
                 event = mergeInformation(dateValid, resourceValid)
                 response = createEvent(event)
-                rawEvent = readJson("current_event.json")
+                rawEvent = readJson("code/current_event.json")
 
                 if len(rawEvent) == 1:
-                    addToJson("current_event.json", event)
+                    addToJson("code/current_event.json", event)
                 else:
                     rawEvent.pop()
                     rawEvent.append(event)
-                    writeJson("current_event.json", rawEvent)
+                    writeJson("code/current_event.json", rawEvent)
 
                 if response[0]:
                     manageAdventure(True, None, None)
@@ -482,8 +464,8 @@ class AdventureButton(ButtonBehavior, Image):
                     Window.set_system_cursor('arrow')
                     for child in main.children:
                         child.opacity -= 0.6
-                    join_child(main, "ScrollEventInfo")
-                    finded.ans.do_scroll = False
+                    scroll = join_child(main, "ScrollEventInfo")
+                    scroll.do_scroll = False
 
                     main.hole = JoinHole(title, body, response[1], response[2])
                     main.add_widget(main.hole)
@@ -499,7 +481,7 @@ def manageAdventure(response, info, realTime):
     main = appList().mycon
     
     if response:
-        current = readJson("current_event.json")[1]
+        current = readJson("code/current_event.json")[1]
 
         if info != None:
             current["fechaInicio"] = [str(info[0].day), str(info[0].month), str(info[0].year)]
@@ -513,14 +495,14 @@ def manageAdventure(response, info, realTime):
             current["eventNum"] = Utils.eventCounter
             Utils.eventCounter += 1
 
-        event = readJson("current_event.json")[0]
+        event = readJson("code/current_event.json")[0]
         title = "Aventura creada exitosamente!"
         body = " " + event["titulo"]
         pos = (WindowWidth - 400, 0)
         showMessage(Message, "Message", title, body, pos)
         current["eventID"] = current["id"]
         current["id"] = dt.datetime.now().timestamp()
-        addToJson("running_events.json", current)
+        addToJson("code/running_events.json", current)
         addToEventList(current)
 
     if main.hole != None:
@@ -528,8 +510,8 @@ def manageAdventure(response, info, realTime):
         Disable.value = False
         for child in main.children:
             child.opacity += 0.6
-        join_child(main, "ScrollEventInfo")
-        finded.ans.do_scroll = True
+        scroll = join_child(main, "ScrollEventInfo")
+        scroll.do_scroll = True
         main.hole = None
 
 class Success:

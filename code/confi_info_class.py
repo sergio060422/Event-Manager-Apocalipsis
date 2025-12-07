@@ -1,27 +1,15 @@
-from kivy.config import Config
-Config.set('graphics', 'resizable', '0')
-Config.set('graphics', 'width', '1280')
-Config.set('graphics', 'height', '768')
-from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.uix.widget import Canvas
 from kivy.uix.stacklayout import StackLayout
-from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import ListProperty
 from kivy.core.window import Window
 from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
 import json
-from kivy.lang import Builder
-from kivy.clock import Clock
 from utilities import *
 from kivy.uix.textinput import TextInput
-from kivy.animation import Animation
 
 class ResourceInfoLayoutP(StackLayout):
     def __init__(self):
@@ -149,15 +137,10 @@ class ResourceP(FloatLayout):
 
     def quit_resource(self, id):
         recurso = get_one(id)
-
-        with open("recursos_seleccionados_event.json", "r") as data:
-            data = json.load(data)
-            data.remove(recurso)
-            
-        with open("recursos_seleccionados_event.json", "w") as file:
-            json.dump(data, file, indent=4)
-
-        appList().mycon.layo.rlist.update("recursos_seleccionados_event.json") 
+        data = readJson("code/recursos_seleccionados_event.json")
+        data.remove(recurso)
+        writeJson("code/recursos_seleccionados_event.json", data)
+        appList().mycon.layo.rlist.update("code/recursos_seleccionados_event.json") 
     
     def on_touch_down(self, touch):
         if CurrentScreen.screen != 1 or Disable.value:

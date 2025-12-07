@@ -1,29 +1,16 @@
 [
     {
-        "id": 1764799450.738261,
-        "titulo": "Aniquilamiento en la vecindad",
+        "id": 1765053562.569944,
+        "titulo": "gracias por todo",
         "tipo": [
             "Defensa"
         ],
-        "descripcion": "Nunca est\u00e1 de m\u00e1s salir un rato a estirar las piernas por los alrededores del refugio y eliminar alg\u00fan que otro infectado por el camino, pero ten cuidado no te sigan al regresar!",
-        "peligro": 2,
-        "ubicacion": "Alrededores del refugio",
-        "necesita": [
-            1,
-            2,
-            7,
-            8
-        ],
-        "recurrente": false,
+        "descripcion": "Fidel",
+        "peligro": 1,
+        "ubicacion": "Interior del refugio",
+        "necesita": [],
+        "recurrente": true,
         "recursos": [
-            [
-                8,
-                1
-            ],
-            [
-                7,
-                1
-            ],
             [
                 2,
                 1
@@ -55,34 +42,69 @@
             0,
             0
         ],
+        "imagen": "assets/event_running_images/example.png",
+        "eventNum": 1,
+        "eventID": -1
+    },
+    {
+        "id": 1765053562.729673,
+        "titulo": "gracias por todo",
+        "tipo": [
+            "Defensa"
+        ],
+        "descripcion": "Fidel",
+        "peligro": 1,
+        "ubicacion": "Interior del refugio",
+        "necesita": [],
+        "recurrente": true,
+        "recursos": [
+            [
+                2,
+                1
+            ],
+            [
+                1,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            3376702800.0,
+            3376789200.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2077"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2077"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "imagen": "assets/event_running_images/example.png",
         "eventNum": 2,
-        "eventID": 1
+        "eventID": -1
     },
     {
-        "id": 1764799450.886958,
-        "titulo": "Aniquilamiento en la vecindad",
+        "id": 1765053562.865897,
+        "titulo": "gracias por todo",
         "tipo": [
             "Defensa"
         ],
-        "descripcion": "Nunca est\u00e1 de m\u00e1s salir un rato a estirar las piernas por los alrededores del refugio y eliminar alg\u00fan que otro infectado por el camino, pero ten cuidado no te sigan al regresar!",
-        "peligro": 2,
-        "ubicacion": "Alrededores del refugio",
-        "necesita": [
-            1,
-            2,
-            7,
-            8
-        ],
-        "recurrente": false,
+        "descripcion": "Fidel",
+        "peligro": 1,
+        "ubicacion": "Interior del refugio",
+        "necesita": [],
+        "recurrente": true,
         "recursos": [
-            [
-                8,
-                1
-            ],
-            [
-                7,
-                1
-            ],
             [
                 2,
                 1
@@ -114,34 +136,22 @@
             0,
             0
         ],
+        "imagen": "assets/event_running_images/example.png",
         "eventNum": 3,
-        "eventID": 1
+        "eventID": -1
     },
     {
-        "id": 1764799451.029729,
-        "titulo": "Aniquilamiento en la vecindad",
+        "id": 1765053563.090634,
+        "titulo": "gracias por todo",
         "tipo": [
             "Defensa"
         ],
-        "descripcion": "Nunca est\u00e1 de m\u00e1s salir un rato a estirar las piernas por los alrededores del refugio y eliminar alg\u00fan que otro infectado por el camino, pero ten cuidado no te sigan al regresar!",
-        "peligro": 2,
-        "ubicacion": "Alrededores del refugio",
-        "necesita": [
-            1,
-            2,
-            7,
-            8
-        ],
-        "recurrente": false,
+        "descripcion": "Fidel",
+        "peligro": 1,
+        "ubicacion": "Interior del refugio",
+        "necesita": [],
+        "recurrente": true,
         "recursos": [
-            [
-                8,
-                1
-            ],
-            [
-                7,
-                1
-            ],
             [
                 2,
                 1
@@ -173,34 +183,22 @@
             0,
             0
         ],
+        "imagen": "assets/event_running_images/example.png",
         "eventNum": 4,
-        "eventID": 1
+        "eventID": -1
     },
     {
-        "id": 1764799452.463891,
-        "titulo": "Aniquilamiento en la vecindad",
+        "id": 1765053565.015099,
+        "titulo": "gracias por todo",
         "tipo": [
             "Defensa"
         ],
-        "descripcion": "Nunca est\u00e1 de m\u00e1s salir un rato a estirar las piernas por los alrededores del refugio y eliminar alg\u00fan que otro infectado por el camino, pero ten cuidado no te sigan al regresar!",
-        "peligro": 2,
-        "ubicacion": "Alrededores del refugio",
-        "necesita": [
-            1,
-            2,
-            7,
-            8
-        ],
-        "recurrente": false,
+        "descripcion": "Fidel",
+        "peligro": 1,
+        "ubicacion": "Interior del refugio",
+        "necesita": [],
+        "recurrente": true,
         "recursos": [
-            [
-                8,
-                1
-            ],
-            [
-                7,
-                1
-            ],
             [
                 2,
                 1
@@ -232,7 +230,8 @@
             0,
             1
         ],
+        "imagen": "assets/event_running_images/example.png",
         "eventNum": 5,
-        "eventID": 1
+        "eventID": -1
     }
 ]

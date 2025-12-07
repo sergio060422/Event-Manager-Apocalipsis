@@ -1,34 +1,16 @@
-from kivy.config import Config
-Config.set('graphics', 'resizable', '0')
-Config.set('graphics', 'width', '1280')
-Config.set('graphics', 'height', '768')
-from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.image import Image
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.uix.widget import Canvas
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import ListProperty
 from kivy.core.window import Window
-from kivy.properties import BooleanProperty
-from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
-import json
-from kivy.lang import Builder
-from kivy.clock import Clock
 from utilities import *
-from kivy.uix.gridlayout import GridLayout
 import calendar
-from kivy.uix.button import Button
 
 months = [0, "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
 
 def getCalendar():
-    join_child(appList().mycon, "TotalCalendar")
-    return finded.ans
+    return join_child(appList().mycon, "TotalCalendar")
 
 class AdvanceMonth(ButtonBehavior, Image):
     def __init__(self):
@@ -69,8 +51,7 @@ class Day(Label):
     def on_touch_down(self, touch):
         calendar = getCalendar()
         if self.collide_point(*touch.pos) and not Disable.value:
-            join_child(appList().mycon, "EventInfo")
-            evinfo = finded.ans
+            evinfo = join_child(appList().mycon, "EventInfo")
             day = self.text
             month = calendar.currentMonth
             year = calendar.currentYear

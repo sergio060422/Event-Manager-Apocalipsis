@@ -1,7 +1,5 @@
-import json
 import datetime as dt
 from utilities import *
-import datetime
 
 sg1 = "por favor verifique que los valores seleccionados sean correctos!"
 sg2 = "su aventura debe tener una duracion de al menos 24 horas!"
@@ -11,7 +9,7 @@ def setEvent(event, isEditable = False, eventInfo = None):
         event["id"] = -1
         event["necesita"] = []
 
-    writeJson('current_event.json', [event])
+    writeJson('code/current_event.json', [event])
 
 def getChar(s):
     for c in s.split(" "):
@@ -20,8 +18,8 @@ def getChar(s):
     return False
 
 def validateEventInfo():
-    current = readJson("current_event.json")[0]
-    resources = readJson("recursos_seleccionados_event.json")
+    current = readJson("code/current_event.json")[0]
+    resources = readJson("code/recursos_seleccionados_event.json")
     title, body = "Error al crear la aventura", ""
 
     if getChar(current["titulo"]) == False:
@@ -53,14 +51,14 @@ def checkEvent(eventInfo):
         timeEnd = (edit.timeEnd[0].text, edit.timeEnd[1].text)
         dateValid = validDate(dateIni, dateEnd, timeIni, timeEnd)
         
-        current = readJson("current_event.json")[0]
+        current = readJson("code/current_event.json")[0]
         current["titulo"] = edit.ids.name.text
         current["tipo"] = [edit.ids.type.text]
         current["descripcion"] = edit.ids.description.text
         current["peligro"] = danger_words_inverse[edit.ids.danger.text]
         current["ubicacion"] = edit.ids.place.text
         
-        writeJson("current_event.json", [current])
+        writeJson("code/current_event.json", [current])
 
     return dateValid
 
@@ -97,8 +95,8 @@ def validDate(Ini, End, TimeIni, TimeEnd):
         return ((start, end), (Ini, End), ((hi, mi), (he, me)))
 
 def validResources():
-    event = readJson("current_event.json")[0]
-    resources = readJson("recursos_seleccionados_event.json")
+    event = readJson("code/current_event.json")[0]
+    resources = readJson("code/recursos_seleccionados_event.json")
 
     for need in event["necesita"]:
         res_need = get_one(need)
@@ -106,10 +104,9 @@ def validResources():
         if not (res_need in resources):
             return "uno de los recursos necesarios para el evento no se encuentra entre los seleccionados!"
 
-    #event conflict
     for resource in resources:
         for exclud in resource["excluyente"]:
-            value = getOneByName(exclud, "recursos_seleccionados_event.json")
+            value = getOneByName(exclud, "code/recursos_seleccionados_event.json")
 
             if value != False:
                 return "verifique para cada recurso que su excluyente no se encuentre seleccionado!"
@@ -117,7 +114,7 @@ def validResources():
         flag = False
 
         for complement in resource["complementario"]:
-            value = getOneByName(complement, "recursos_seleccionados_event.json")
+            value = getOneByName(complement, "code/recursos_seleccionados_event.json")
          
             if value != False:
                 flag = True
@@ -147,34 +144,21 @@ def interception(l1, r1, l2, r2):
     
     return False
 
-def conflict(event1, event2):
-    pass
-
 def verifyInterval(event, ini, end):
-    nested = []
+    nested, resources = [], {}
 
-    for e in readJson("running_events.json"):
-        timeEvent = e["tiempoReal"]
+    for runEvent in readJson("code/running_events.json"):
+        timeEvent = runEvent["tiempoReal"]
 
         if interception(timeEvent[0], timeEvent[1], ini, end):
-            nested.append(e)
-    
-    resources = {}
-
-    for eventNested in nested:
-        resource = eventNested["recursos"]
-
-        for x in resource:
-            resources[x[0]] = resources.get(x[0], 0) + x[1] 
-
-    for resource in event["recursos"]:
-        type = resource[0]
-        total = get_one(type)["cantidad"]
-        cuantity = resources.get(type, -1)
-
-        if cuantity != -1 and cuantity + resource[1] > total:
-            return False
-
+            for type in runEvent["recursos"]:
+                cuantity = resources.get(type, 0)
+                resources.update({type: cuantity + runEvent["recursos"][type]})
+                myCuantity = event["recursos"].get(int(type), 0)
+                total = get_one(int(type))["cantidad"]
+                if myCuantity + resources[type] > total:
+                    return False
+                
     return True
 
 def toDate(value):
@@ -192,15 +176,15 @@ def joinTime(event):
     if verifyInterval(event, default, default + time):
         return (default, default + time)
 
-    for e in readJson("running_events.json"):
+    for e in readJson("code/running_events.json"):
         tr = e["tiempoReal"]
         if verifyInterval(event, tr[1] + 60, tr[1] + 60  + time):
             return (tr[1] + 60, tr[1] + 60 + time)     
 
 def mergeInformation(Date, Resources):
-    event = readJson("current_event.json")[0]
+    event = readJson("code/current_event.json")[0]
 
-    event["recursos"] = Resources
+    event["recursos"] = dict(Resources)
     event["tiempoReal"] = Date[0]
     event["fechaInicio"] = Date[1][0]
     event["fechaFin"] = Date[1][1]
@@ -209,8 +193,7 @@ def mergeInformation(Date, Resources):
     
     if event["id"] == -1:
         main = appList().mycon
-        join_child(main, "PathImage")
-        event["imagen"] = finded.ans.text
+        event["imagen"] = join_child(main, "PathImage").text
     else:
         event["imagen"] = f"assets/event_running_images/{event["id"]}.png"
     

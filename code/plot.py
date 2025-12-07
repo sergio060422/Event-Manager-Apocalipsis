@@ -1,9 +1,8 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from matplotlib.patches import FancyBboxPatch
 from utilities import *
 import calendar
-from datetime import datetime, date, timedelta
+from datetime import datetime, timedelta
 import matplotlib
 
 def get_duration(event):
@@ -57,7 +56,7 @@ class Utils:
 
 def createGraph():
     matplotlib.rcParams['toolbar'] = 'none'
-    running = readJson("running_events.json")
+    running = readJson("code/running_events.json")
     
     fig, ax = plt.subplots(figsize=(10, 7))
     maxDate = get_maximum(running)

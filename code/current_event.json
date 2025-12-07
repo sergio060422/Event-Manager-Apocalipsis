@@ -1,0 +1,14 @@
+[
+    {
+        "id": -1,
+        "titulo": "Atender cultivos",
+        "tipo": [
+            "Supervivencia"
+        ],
+        "descripcion": "Tu cuerpo no aguantara mucho tiempo comiendo solamente comida enlatada, prestale atencion a tus cultivos y al menos comeras como un rey hasta que los infectados te coman a ti el cerebro",
+        "peligro": 1,
+        "ubicacion": "Patio exterior",
+        "necesita": [],
+        "recurrente": true
+    }
+]

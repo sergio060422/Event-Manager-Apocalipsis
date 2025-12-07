@@ -1,7 +1,7 @@
 from kivy.core.window import Window
 from kivy.app import App
+from kivy.uix.screenmanager import SlideTransition
 import json
-from kivy.uix.widget import Widget
 
 Places = set()
 HeightDescription = [0, 108, 130, 108, 86, 130, 108, 108, 86, 86, 130, 108, 130, 108, 130, 108, 108, 108, 108]
@@ -13,6 +13,7 @@ danger_words = {
     4: "Sal corriendo",
     5: "Muerte segura"
 }
+
 danger_words_inverse = {
     "Pan comido": 1,
     "Vigila tus espaldas": 2,
@@ -20,6 +21,7 @@ danger_words_inverse = {
     "Sal corriendo": 4,
     "Muerte segura": 5
 }
+
 dg_colors = {
     1: [0.18,0.80,0.44,1], 
     2: [0.60,0.88,0.60,1],  
@@ -27,6 +29,7 @@ dg_colors = {
     4: [1.00,0.48,0.27,1],  
     5: [0.90,0.30,0.20,1]  
 }
+
 colors = [
     "#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F",
     "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC",
@@ -54,7 +57,7 @@ def writeJson(src, value):
         json.dump(value, file, indent=4)
 
 def getPlaces():
-    events = readJson("eventos.json")
+    events = readJson("code/eventos.json")
 
     if not len(Places):
         for event in events:
@@ -66,11 +69,11 @@ def addToJson(src, value):
     writeJson(src, data)
 
 def get_all():
-    with open("recursos.json") as file:
+    with open("code/recursos.json") as file:
         return json.load(file)
     
 def get_one(id):
-    with open("recursos.json") as file:
+    with open("code/recursos.json") as file:
         return json.load(file)[id - 1]
     
 def appList():
@@ -87,7 +90,7 @@ class Utils:
     isDismiss = True
     spinner = False
     eventCounter = 1
-    for e in readJson("running_events.json"):
+    for e in readJson("code/running_events.json"):
         eventCounter = max(eventCounter, e["eventNum"] + 1)
     errorHover = False
 
@@ -98,16 +101,25 @@ class CurrentScreen:
     screen = 3
     before = 0
 
-
 def join_child(child, joined):
     if child.__class__.__name__ == joined:
         finded.ans = child
+        return child
 
     for x in child.children:
         join_child(x, joined)
 
+    if finded.ans != 0:
+        return finded.ans
+
 def deleteChild(parent, child):
     parent.remove_widget(child)
+
+def transition(target, duration, direction):
+    Window.set_system_cursor("arrow")
+    screenParent = appList().screenParent
+    screenParent.transition = SlideTransition(duration=duration, direction=direction)
+    screenParent.current = target
 
 def on_hover(widget, pos, opacity, screen, src, default, cursor, scroll, dropdown):
     if screen != CurrentScreen.screen or Disable.value:

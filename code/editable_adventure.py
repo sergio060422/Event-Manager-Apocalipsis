@@ -1,31 +1,13 @@
-from kivy.config import Config
-from kivy.app import App
-from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.image import Image
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.uix.widget import Canvas
-from kivy.uix.stacklayout import StackLayout
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import ListProperty
 from kivy.core.window import Window
-from kivy.properties import BooleanProperty
-from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
-import json
-from confi_info_class import ResourcesLayoutP, ResourceInfoLayoutP, ResourceP
 from kivy.lang import Builder
 from kivy.uix.dropdown import DropDown
 from utilities import *
-from kivy.uix.scrollview import ScrollView
-from calendar_widget import TotalCalendar, getCalendar
-from kivy.factory import Factory
 from kivy.uix.button import Button
 from event_manager import *
 from error import *
-from kivy.animation import Animation
 from utilities import *
 from kivy.uix.spinner import Spinner
 
@@ -33,7 +15,7 @@ kv = '''
 <EditableAdventure>:
     padding: 20, 0, 0, 0
     size_hint_y: None
-    height: 1150
+    height: 1160
     orientation: "vertical"
     spacing: 8
 
@@ -195,12 +177,13 @@ kv = '''
     BoxLayout:
         spacing: 8
         size_hint_y: None
-        height: 30
+        height: 40
         PathImage:
             size_hint: None, None
             font_size: 15
             size: (320, 30)
             text_size: (400, 30)
+            pos_hint: {'x': 0, 'center_y': .5}
             foreground_color: (1, 1, 1, 1)
             background_color: (0.12, 0.12, 0.12, 1)
             cursor_color: (1, 1, 1, 1)
@@ -214,6 +197,7 @@ kv = '''
                     width: 1.01  
         SelectImage:
             size_hint: None, None
+            pos_hint: {'x': 0, 'center_y': .5}
             size: (90, 30)
             markup: True
             text: "[b] Seleccionar [/b]"
@@ -473,7 +457,7 @@ class EditableAdventure(BoxLayout):
     
 def createEditableAdventure(parent):
     parent.childs = []
-    parent.height = 1150
+    parent.height = 1160
     Window.set_system_cursor('arrow')
 
     for child in parent.children:
