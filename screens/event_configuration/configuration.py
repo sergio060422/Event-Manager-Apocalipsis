@@ -92,7 +92,7 @@ class EventInfo(BoxLayout):
    
         if i == -1:
             createEditableAdventure(self)
-            setEvent(e, True, self)
+            setEvent(e, True)
         else:
             setEvent(e)
             if self.editable != None:

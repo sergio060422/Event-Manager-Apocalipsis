@@ -171,17 +171,6 @@ def hasChild(parent, child):
             return True
     return False
 
-def sortEvents(parent):
-    for child in parent.children:
-        if child.isEvent:
-            parent.remove_widget(child)
-
-    events = readJson("data/dynamic/running_events.json")
-
-    for e in events:
-        event = RunningEvent(e)
-        parent.add_widget(event)
-
 def resizeList(parent, value=None):
     childCount = len(readJson("data/dynamic/running_events.json")) if value == None else value
     childCount += 4 if childCount % 4 != 0 else 0
@@ -305,6 +294,24 @@ class Search(Image):
         self.pos = (285, 598)
         self.source = "assets/search.png"
 
+class Sort(Image):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.size_hint = (None, None)
+        self.size = (40, 40)
+        self.pos = (360, 627)
+        self.source = "assets/sort.png"
+        setup_hover(self, 2)
+
+    hovered = False
+
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos) and not Disable.value:
+            from utilities.ui_utils import sortEvents
+            root = self.parent
+            eventList = join_child(root, "RunningEventList")
+            sortEvents(eventList)
+
 class Graphic(Image):
     def __init__(self):
         super().__init__()
@@ -359,6 +366,8 @@ class MainEventContainter(FloatLayout):
         self.add_widget(self.scrollList)
         self.search = Search()
         self.add_widget(self.search)
+        self.sort = Sort()
+        self.add_widget(self.sort)
         self.graphic = Graphic()
         self.add_widget(self.graphic)
         self.back = Back()

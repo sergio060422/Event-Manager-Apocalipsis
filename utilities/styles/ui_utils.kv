@@ -1,0 +1,95 @@
+<Error>:
+    opacity: 0
+    Label:
+        id: errorText
+        multiline: True
+        text_size: 370, None
+        color: 1, 1, 1, 0.8
+        size_hint: None, None
+        size: self.texture_size
+        pos_hint: {'x': 0.05, 'top': 0.95}
+        font_size: 20
+
+<JoinHole>:
+    orientation: "vertical"
+    size_hint: None, None
+    size: (410, 250)
+    pos_hint: {'center_x': .5, 'center_y': .5}
+    padding: 16
+    spacing: 12
+    canvas.before:
+        Color:
+            rgba: (0.07, 0.07, 0.07, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+           
+<AceptJoinButton>:
+    size_hint: None, None
+    size: (90, 35)
+    font_size: 24
+
+<AceptJoinHole>:
+    background_color: 0, 0, 0, 0
+    markup: True
+    text: "[b] Hazlo! [/b]"
+    canvas.before:
+        Color:
+            rgba: 0.12, 0.12, 0.12, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12]
+    canvas.after:
+        Color:
+            rgba: 0.137, 0.525, 0.212, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+            width: 1.01
+    
+<DeniedJoinHole>:
+    background_color: 0, 0, 0, 0
+    markup: True
+    text: "[b] Cancelar [/b]"
+    canvas.before:
+        Color:
+            rgba: 0.12, 0.12, 0.12, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12]
+    canvas.after:
+        Color:
+            rgba: 0.980, 0.169, 0.133, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+            width: 1.01 
+
+<ButtonSet>:
+    size_hint: None, None
+    size: (180, 40)
+    pos_hint: {'right': 1, 'y': 0}
+    spacing: 5
+
+<TitleHole>:
+    font_size: 24
+    size_hint: None, None
+    multiline: True
+    text_size: 400, None
+    size: self.texture_size
+
+    canvas.after:
+        Color:
+            rgba: 0.9, 0.9, 0.9, 0.9
+        Line:
+            points: (self.x + 4, self.y - 4, self.x + self.width - 24, self.y - 4)
+            width: 1.5
+    
+<BodyHole>:
+    multiline: True
+    text_size: 400, None
+    color: 1, 1, 1, 0.8
+    size_hint: None, None
+    size: self.texture_size
+    font_size: 20

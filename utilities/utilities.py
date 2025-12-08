@@ -68,6 +68,21 @@ def addToJson(src, value):
     data.append(value)
     writeJson(src, data)
 
+def findMex():
+    running = readJson("data/dynamic/running_events.json")
+    visited = {}
+
+    for event in running:
+        visited[event["eventNum"]] = True
+    
+    for i in range(1, len(running) + 1):
+        vis = visited.get(i, False)
+
+        if not vis:
+            return i
+    
+    return len(running) + 1
+
 def get_all():
     with open("data/static/resources.json") as file:
         return json.load(file)
@@ -93,6 +108,7 @@ class Utils:
     isDismiss = True
     spinner = False
     eventCounter = 1
+    
     for e in readJson("data/dynamic/running_events.json"):
         eventCounter = max(eventCounter, e["eventNum"] + 1)
     errorHover = False
