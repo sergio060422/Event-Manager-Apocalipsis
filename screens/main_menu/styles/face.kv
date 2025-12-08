@@ -1,0 +1,135 @@
+<Menu>:
+    canvas.before:
+        Color:
+            rgba: 0.07, 0.07, 0.07, 0.85
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+            width: 1.5
+        
+    size_hint: None, None
+    size: (400, 450)
+    pos_hint: {'center_x':  0.75, 'center_y': 0.5}
+    orientation: "vertical"
+
+<Option>:
+    size_hint: None, None
+    width: 250
+    pos_hint: {'center_x': 0.5, 'y': 0}
+
+<FileSelectorWindow>:
+    size_hint: None, None
+    size: (900, 600)
+    orientation: "vertical"
+    pos_hint: {'center_x': .5, 'center_y': .5}
+    canvas.before:
+        Color:
+            rgba: 0.12, 0.12, 0.12, 0.95
+        Rectangle:
+            pos: self.pos
+            size: self.size
+<Title>:
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            points: (self.x, self.y, self.x + 900, self.y)
+            width: 1.2
+    canvas.before:
+        Color:
+            rgba: 0.07, 0.07, 0.07, 0.9
+        Rectangle:
+            pos: self.pos
+            size: (900, 50)
+    padding: 10
+    font_size: 32
+    size_hint: None, None
+    size: self.texture_size
+    font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
+    size_hint_y: None
+    height: 50
+
+<Path>:
+    size_hint: None, None
+    font_size: 15
+    size: (400, 30)
+    text_size: (400, 30)
+    pos_hint: {'x': 0, 'center_y': .5}
+    foreground_color: (1, 1, 1, 1)
+    background_color: (0.12, 0.12, 0.12, 1)
+    padding: 6
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+            width: 1.01
+
+<BottomBar>:
+    padding: 10
+    size_hint_y: None
+    height: 60
+    spacing: 10
+
+<SelectionButton>:
+    background_color: 0, 0, 0, 0
+    markup: True
+    text: "[b] Seleccionar [/b]"
+    size_hint: None, None
+    height: 36
+    pos_hint: {'x': 0, 'center_y': .5}
+    canvas.before:
+        Color:
+            rgba: 0.12, 0.12, 0.12, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12]
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+            width: 1.01
+
+<NameContainer>:
+    size_hint: None, None
+    pos_hint: {'x': 0, 'y': 0}
+    width: 300
+    padding: 10
+    orientation: "vertical"
+    spacing: 8
+
+    Label:
+        size_hint: None, None
+        size: self.texture_size
+        text: "Te llamabas:"
+        font_size: 28
+        font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
+        
+    NameInput:
+        id: nameValue
+        background_color: 0, 0, 0, 0
+        cursor_color: 1, 1, 1, 1
+        foreground_color: 1, 1, 1, 1
+        size_hint_y: None
+        height: 36
+        font_size: 18
+        hovered: False
+        hint_text: "Elige un nombre"
+        multiline: False
+        canvas.after:
+            Color: 
+                rgba: 1, 1, 1, 1
+            Line:
+                points: (self.x, self.y + 4, 200, self.y + 4)
+                width: 1
+        
+    Label:
+        index: 0
+

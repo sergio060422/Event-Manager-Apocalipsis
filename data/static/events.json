@@ -1,0 +1,184 @@
+[
+  {
+    "id": 1,
+    "titulo": "Aniquilamiento en la vecindad",
+    "tipo": ["Defensa"],
+    "descripcion": "Nunca está de más salir un rato a estirar las piernas por los alrededores del refugio y eliminar algún que otro infectado por el camino, pero ten cuidado no te sigan al regresar!",
+    "peligro": 2,
+    "ubicacion": "Alrededores del refugio",
+    "necesita": [1, 2, 7, 8],
+    "recurrente": false
+    
+  },
+  {
+    "id": 2,
+    "titulo": "Expedición al bunker abandonado",
+    "tipo": ["Defensa"],
+    "descripcion": "De las profundidades del bunker abandonado surgen oleadas de infectados todos los días; ir allí y eliminar un poco de \"población\" disminuiría la probabilidad de un ataque masivo al refugio. Solo recuerda ir bien armado y con un compañero.",
+    "peligro": 4,
+    "ubicacion": "Bunker militar del sur",
+    "necesita": [3, 4, 5, 6, 18, 19, 20],
+    "recurrente": false
+  },
+  {
+    "id": 3,
+    "titulo": "Limpieza de carreteras",
+    "tipo": ["Defensa"],
+    "descripcion": "Últimamente las carreteras cercanas al refugio se encuentran repletas de infectados, lo cual podría dificultar la ejecución de la huida en caso de emergencia. Hora de barrer toda la suciedad en ellas!",
+    "peligro": 2,
+    "ubicacion": "Carreteras cercanas al refugio",
+    "necesita": [3, 4, 18, 19, 20],
+    "recurrente": false
+  },
+  {
+    "id": 4,
+    "titulo": "Preparar el armamento",
+    "tipo": ["Defensa"],
+    "descripcion": "Solo a los infectados les agrada que tu arma falle; por eso cada cierto tiempo debes darle mantenimiento a tus armas, hasta la navaja suiza lo necesita!",
+    "peligro": 1,
+    "ubicacion": "Cuarto de armamento",
+    "necesita": [1, 2, 15, 16],
+    "recurrente": false
+  },
+  {
+    "id": 5,
+    "titulo": "Vuelvete tramposo!",
+    "tipo": ["Refugio"],
+    "descripcion": "Desde hoyos con púas hasta cuerdas decapitadoras, todo en este juego de la supervivencia vale. Amplía las trampas en tu refugio para aumentar tus probabilidades de supervivencia en caso de una invasión.",
+    "peligro": 1,
+    "ubicacion": "Patio exterior",
+    "necesita": [13, 14, 15, 16],
+    "recurrente": false
+  },
+  {
+    "id": 6,
+    "titulo": "Podar el jardin",
+    "tipo": ["Refugio", "Defensa"],
+    "descripcion": "Las tareas dentro del refugio suelen ser bastante tranquilas, pero de vez en cuando uno que otro infectado rompe la cerca electrificada y es necesario ir a despejar todo el perímetro del patio exterior.",
+    "peligro": 3,
+    "ubicacion": "Perimetro del refugio",
+    "necesita": [3, 4, 7, 8, 9, 10, 15, 16],
+    "recurrente": false
+  },
+  {
+    "id": 7,
+    "titulo": "Bombillas defectuosas",
+    "tipo": ["Refugio"],
+    "descripcion": "Las torres de iluminación a menudo presentan problemas técnicos; sube ahí arriba y dales mantenimiento. Los infectados no podrán llegar hasta ti pero tarde o temprano tendrás que bajar.",
+    "peligro": 2,
+    "ubicacion": "Torres de iluminacion K3",
+    "necesita": [9, 10, 11, 12],
+    "recurrente": false
+  },
+  {
+    "id": 8,
+    "titulo": "Tapar los agujeros",
+    "tipo": ["Refugio"],
+    "descripcion": "No basta con mantener puertas y ventanas cerradas si no cumplen su función. Repara las fisuras o tendrás visitantes inesperados en un abrir y cerrar de ojos.",
+    "peligro": 1,
+    "ubicacion": "Interior del refugio",
+    "necesita":[13, 14],
+    "recurrente": false
+  },
+  {
+    "id": 9,
+    "titulo": "Depurar H2O",
+    "tipo": ["Refugio"],
+    "descripcion": "De nada sirve unas puertas sólidas si el agua que bebes está podrida. Cambia los filtros de H2O cada cierto tiempo y no tendrás infectados en tu refugio.",
+    "peligro": 1,
+    "ubicacion": "Modulo de purificacion",
+    "necesita": [11, 12],
+    "recurrente": false
+  },
+  {
+    "id": 10,
+    "titulo": "Ir de compras",
+    "tipo": ["Supervivencia"],
+    "descripcion": "Los recursos en el refugio no son ilimitados; hacer expediciones a supermercados abandonados es una buena manera de conseguir víveres, pero ten cuidado. Ese tipo de zonas que en el pasado eran ampliamente frecuentadas ahora también lo son.",
+    "peligro": 3,
+    "ubicacion": "Supermercados WaltMart",
+    "necesita": [3, 4, 5, 6, 15, 16, 17, 18],
+    "recurrente": false
+  },
+  {
+    "id": 11,
+    "titulo": "Pasaje a lo desconocido",
+    "tipo": ["Supervivencia"],
+    "descripcion": "La exploración no es una actividad muy bonita que digamos comparada a quedarse bajo la seguridad de las puertas del refugio, pero nunca se sabe qué podría aguardar para ti descubrir nuevos horizontes.",
+    "peligro": 3,
+    "ubicacion": "Fronteras de la ciudad",
+    "necesita": [3, 4, 18, 19, 20, 21, 22],
+    "recurrente": false
+  },
+  {
+    "id": 12,
+    "titulo": "Eliminar colmena",
+    "tipo": ["Supervivencia", "Defensa"],
+    "descripcion": "Las colmenas son los epicentros de la infección, están plagadas de infectados; por lo tanto nadie se acerca ahí excepto nosotros. Eliminando estas colmenas la infección disminuye considerablemente aunque es una actividad sumamente riesgosa.",
+    "peligro": 5,
+    "ubicacion": "Area 0 de infeccion",
+    "necesita": [1, 2, 7, 8, 15, 16, 17, 18],
+    "recurrente": false
+  },
+  {
+    "id": 13,
+    "titulo": "Recetas de plomo",
+    "tipo": ["Supervivencia"],
+    "descripcion": "Las expediciones a hospitales abandonados son lugares excelentes para obtener medicinas y reactivos para el desarrollo de la cura; no te dejes engañar por sus batas blancas, están todos muertos.",
+    "peligro": 4,
+    "ubicacion": "Hospital abandonado",
+    "necesita": [3, 4, 15, 16, 17, 18],
+    "recurrente": false
+    
+  },
+  {
+    "id": 14,
+    "titulo": "Buscar chatarra",
+    "tipo": ["Supervivencia", "Refugio"],
+    "descripcion": "La maquinaria necesaria para el funcionamiento del refugio requiere de piezas que no son nada fáciles de fabricar; sin embargo los depósitos de chatarra son minas de oro. Hazte de un buen manojo de materiales a \"bajo costo\".",
+    "peligro": 2,
+    "ubicacion": "Cementerio de autos",
+    "necesita": [1, 2, 17, 18, 23, 24],
+    "recurrente": false
+  },
+  {
+    "id": 15,
+    "titulo": "Rescatar supervivientes",
+    "tipo": ["Supervivencia"],
+    "descripcion": "Las expediciones de búsqueda de supervivientes son un gesto de humanidad, pero ten cuidado porque algunos intentarán aprovecharse de ti; lleva tu arma bien cargada.",
+    "peligro": 4,
+    "ubicacion": "Refugios Infectados",
+    "necesita": [3, 4, 7, 8, 15, 16, 21, 22],
+    "recurrente": false
+  },
+  {
+    "id": 16,
+    "titulo": "Visita programada",
+    "tipo": ["Defensa"],
+    "descripcion": "En los alrededores del refugio hay gran cantidad de casas y edificios de lujo, ahora sus inquilinos estan todos muertos y desean visitarnos, pero no los dejaremos!",
+    "peligro": 3,
+    "ubicacion": "Vecindario del refugio",
+    "necesita": [3, 4, 18, 19, 20],
+    "recurrente": true
+  },
+  {
+    "id": 17,
+    "titulo": "Control de bugs",
+    "tipo": ["Refugio"],
+    "descripcion": "Diagnosticar los problemas del refugio antes de que escalen a una catástrofe de aniquilación total es una muy buena práctica. Toma tu llave inglesa de vez un cuando y descubre todas las anomalias",
+    "peligro": 1,
+    "ubicacion": "Interior del refugio",
+    "necesita": [11, 12],
+    "recurrente": true
+  },
+  {
+    "id": 18,
+    "titulo": "Atender cultivos",
+    "tipo": ["Supervivencia"],
+    "descripcion": "Tu cuerpo no aguantara mucho tiempo comiendo solamente comida enlatada, prestale atencion a tus cultivos y al menos comeras como un rey hasta que los infectados te coman a ti el cerebro",
+    "peligro": 1,
+    "ubicacion": "Patio exterior",
+    "necesita": [5, 6, 15, 16],
+    "recurrente": true
+  }
+]

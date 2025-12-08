@@ -1,0 +1,218 @@
+[
+  {
+    "id": 1,
+    "nombre": "Escopeta de caza",
+    "descripcion": "Escopeta de caza calibre .50; ten cuidado donde apuntas al apretar el gatillo o podrías acabar decorando el techo del refugio.",
+    "tipo": ["Defensa"],
+    "complementario": ["Balas de escopeta"],
+    "excluyente": ["Baby Shark"],
+    "cantidad": 4
+  },
+  {
+    "id": 2,
+    "nombre": "Balas de escopeta",
+    "descripcion": "Balas de escopeta; puede que los magos las detengan con la boca, pero los infectados no son magos.",
+    "tipo": ["Defensa"],
+    "complementario": ["Escopeta de caza"],
+    "excluyente": ["Balas del Baby Shark"],
+    "cantidad": 12
+  },
+  {
+    "id": 3,
+    "nombre": "Baby Shark",
+    "descripcion": "El mote de este revólver Magnum calibre .44 fue puesto por el abuelo, quien afirmaba que se podían cazar tiburones con él.",
+    "tipo": ["Defensa"],
+    "complementario": ["Balas del Baby Shark"],
+    "excluyente": ["Escopeta de caza"],
+    "cantidad": 5
+  },
+  {
+    "id": 4,
+    "nombre": "Balas del Baby Shark",
+    "descripcion": "Balas para revólver calibre .44; pueden usarse con el Baby Shark; tienen tallado un tiburón con zapatos.",
+    "tipo": ["Defensa"],
+    "complementario": ["Baby Shark"],
+    "excluyente": ["Balas de escopeta"],
+    "cantidad": 18
+  },
+  {
+    "id": 5,
+    "nombre": "Emigrante cubano",
+    "descripcion": "Estos emigrantes son antiguos cortadores de cana de azucar en su tierra natal Cuba. No les gustan nada los perros. Dicen que son capaces de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo.",
+    "tipo": ["Defensa"],
+    "complementario": ["Machetes oxidados"],
+    "excluyente": ["Husky del refugio"],
+    "cantidad": 5
+  },
+  {
+    "id": 6,
+    "nombre": "Machetes oxidados",
+    "descripcion": "Solo los cortadores de cana sabe cómo usar estos machetes oxidados; no les gusta que los toquen.",
+    "tipo": ["Defensa"],
+    "complementario": ["Emigrante cubano", "Piedra de afilar"],
+    "excluyente": ["Galletas en forma de hueso"],
+    "cantidad": 5
+  },
+  {
+    "id": 7,
+    "nombre": "Husky del refugio",
+    "descripcion": "Estos cachorros de husky siberiano fueron los únicos supervivientes, junto al abuelo Polkish, del ataque que sufrió el actual refugio antes de nuestra llegada; les gustan mucho las galletas.",
+    "tipo": ["Defensa", "Refugio"],
+    "complementario": ["Galletas en forma de hueso"],
+    "excluyente": ["Emigrante cubano"],
+    "cantidad": 7
+  },
+  {
+    "id": 8,
+    "nombre": "Galletas en forma de hueso",
+    "descripcion": "Estas galletas son las favoritas de los husky; lánzaselas encima de los caminantes y deja que hagan el trabajo.",
+    "tipo": ["Defensa", "Refugio"],
+    "complementario": ["Husky del refugio"],
+    "excluyente": ["Machetes oxidados"],
+    "cantidad": 14
+  },
+  {
+    "id": 9,
+    "nombre": "Milly, la mecánica",
+    "descripcion": "El primer juguete que Milly tuvo en la infancia fue una llave inglesa; siempre estuvo muy unida a su padre y desde que este falleció en los sucesos de la primera oleada no ha sido la misma. Ahora lucha junto a tu grupo para encontrar la cura al virus.",
+    "tipo": ["Refugio"],
+    "complementario": ["Llave inglesa de papá"],
+    "excluyente": ["Raciones enlatadas"],
+    "cantidad": 1
+  },
+  {
+    "id": 10,
+    "nombre": "Llave inglesa de papá",
+    "descripcion": "El primer juguete que tuvo Milly la dio su padre. Puede reparar cualquier cosa.",
+    "tipo": ["Refugio"],
+    "complementario": ["Milly, la mecánica"],
+    "excluyente": ["Abrelatas"],
+    "cantidad": 1
+  },
+  {
+    "id": 11,
+    "nombre": "Kit de Mantenimiento de Refugio (KMR)",
+    "descripcion": "Este kit creado por Milly permite dar mantenimiento a las maquinarias del refugio sin tener grandes conocimientos de mecánica; no contiene instrucciones.",
+    "tipo": ["Refugio"],
+    "complementario": ["Aceite de motor"],
+    "excluyente": ["Kit de Seguridad de Refugio (KSR)"],
+    "cantidad": 6
+  },
+  {
+    "id": 12,
+    "nombre": "Aceite de motor",
+    "descripcion": "Aceite de motor común y corriente, ideal para maquinarias chirriantes.",
+    "tipo": ["Refugio"],
+    "complementario": ["Kit de Mantenimiento de Refugio (KMR)"],
+    "excluyente": ["Placa reforzante"],
+    "cantidad": 4
+  },
+  {
+    "id": 13,
+    "nombre": "Kit de Seguridad de Refugio (KSR)",
+    "descripcion": "Este kit creado por el abuelo es lo mejor para realizar reparaciones en las áreas más sensibles del refugio; después de la última oleada fue perfeccionado y actualizado.",
+    "tipo": ["Refugio"],
+    "complementario": ["Placa reforzante"],
+    "excluyente": ["Kit de mantenimiento de Refugio (KMR)"],
+    "cantidad": 8
+  },
+  {
+    "id": 14,
+    "nombre": "Placa reforzante",
+    "descripcion": "Como su nombre indica, esta placa fabricada con fibra de carbono puede reforzar cualquier tipo de estructura del refugio con tan solo un par de martillazos; se instala con el KSR.",
+    "tipo": ["Refugio"],
+    "complementario": ["Kit de Seguridad de Refugio (KSR)"],
+    "excluyente": ["Aceite de motor"],
+    "cantidad": 12
+  },
+  {
+    "id": 15,
+    "nombre": "Polkish, el abuelo",
+    "descripcion": "Al abuelo Polkish lo encontramos en nuestro actual refugio junto a su adorable Husky del refugio, es un experto en exploracion y supervivencia",
+    "tipo": ["Refugio", "Supervivencia"],
+    "complementario": ["Ziggy el filoso"],
+    "excluyente": ["Navaja suiza de Osvaldo"],
+    "cantidad": 1
+  },
+  {
+    "id": 16,
+    "nombre": "Ziggy el filoso",
+    "descripcion": "Este cuchillo Bowie pertenece al abuelo; tiene un filo descomunal, parece que fue traído de otro planeta.",
+    "tipo": ["Supervivencia"],
+    "complementario": ["Polkish, el abuelo", "Piedra de afilar"],
+    "excluyente": ["Piedra de afilar"],
+    "cantidad": 1
+  },
+  {
+    "id": 17,
+    "nombre": "Pathfinder",
+    "descripcion": "El Pathfinder es un Voksgawen modificado del año 68; sirve para realizar exploraciones rápidas al exterior.",
+    "tipo": ["Supervivencia"],
+    "complementario": ["Galón de gasolina"],
+    "excluyente": ["TIBURON"],
+    "cantidad": 2
+  },
+  {
+    "id": 18,
+    "nombre": "Galón de gasolina",
+    "descripcion": "Un galón de gasolina; huele rico.",
+    "tipo": ["Supervivencia"],
+    "complementario": ["Pathfinder", "TIBURÓN"],
+    "excluyente": ["Aceite de motor"],
+    "cantidad": 8
+  },
+  {
+    "id": 19,
+    "nombre": "TIBURÓN",
+    "descripcion": "Estas motos pertenecieron al abuelo en sus años de juventud cuando formaba parte de una banda de motoristas exploradores; están equipadas con una escopeta cartucho adaptada.",
+    "tipo": ["Supervivencia", "Defensa"],
+    "complementario": ["Galón de gasolina", "Escopeta recortada adaptada"],
+    "excluyente": ["Pathfinder"],
+    "cantidad": 3
+  },
+  {
+    "id": 20,
+    "nombre": "Escopeta recortada adaptada",
+    "descripcion": "Escopeta recortada italiana de 2 proyectiles; el abuelo la llama 'Abremundos'.",
+    "tipo": ["Supervivencia", "Defensa"],
+    "complementario": ["TIBURÓN"],
+    "excluyente": ["Escopeta de caza"],
+    "cantidad": 3
+  },
+  {
+    "id": 21,
+    "nombre": "Raciones enlatadas",
+    "descripcion": "Comida enlatada ideal para todo tipo de exploración; no tiene mucho sabor.",
+    "tipo": ["Supervivencia"],
+    "complementario": ["Abrelatas"],
+    "excluyente": ["Milly, la mecánica"],
+    "cantidad": 15
+  },
+  {
+    "id": 22,
+    "nombre": "Abrelatas",
+    "descripcion": "Abrelatas marca OpenAll; sirve para abrir todo tipo de latas.",
+    "tipo": ["Supervivencia"],
+    "complementario": ["Raciones enlatadas"],
+    "excluyente": ["LLave inglesa de papá"],
+    "cantidad": 3
+  },
+  {
+    "id": 23,
+    "nombre": "Navaja suiza de los emigrantes",
+    "descripcion": "Navaja suiza hecha en Cuba; sirve para todo.",
+    "tipo": ["Supervivencia", "Refugio", "Defensa"],
+    "complementario": ["Piedra de afilar"],
+    "excluyente": ["Polkish, el abuelo"],
+    "cantidad": 5
+  },
+  {
+    "id": 24,
+    "nombre": "Piedra de afilar",
+    "descripcion": "Piedra de afilar para filos menores; aunque los emigrantes cubanos las usan con sus machetes.",
+    "tipo": ["Supervivencia", "Refugio", "Defensa"],
+    "complementario": ["Navaja suiza de los emigrantes", "Machetes oxidados"],
+    "excluyente": ["Ziggy el filoso"],
+    "cantidad": 3
+  }
+]

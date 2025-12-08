@@ -1,0 +1,421 @@
+#:import NeedResources screens.event_configuration.configuration.NeedResources
+#:import DateIniButton screens.event_configuration.configuration.DateIniButton
+#:import DateEndButton screens.event_configuration.configuration.DateEndButton
+#:import Date screens.event_configuration.configuration.Date
+#:import TimeInput screens.event_configuration.configuration.TimeInput
+#:import AddNeedButton screens.event_configuration.configuration.AddNeedButton
+#: import Time screens.event_configuration.configuration.TimeInput
+
+<ConfiEvent@BoxLayout>:
+    canvas.after:
+        Color:
+            rgba: 0.8, 0.8, 0.8, 0.8
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+            width: 1.5
+        Line:
+            rectangle: (self.x + 500, self.y, 0, self.height)
+            width: 1
+    
+    size_hint: (None, None)
+    size: (850, 500)
+    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    orientation: "horizontal"
+
+<EventHandler>:
+    size_hint: None, None
+    size: (500, 500)
+    orientation: 'vertical'
+    spacing: 20
+
+    canvas.before:
+        Color:
+            rgba: (0.07, 0.07, 0.07, 0.95)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12, 0, 0, 12]
+    Label: 
+        index: 0
+        text: 'Configura tu aventura!'
+        font_size: 36
+        color: 1, 1, 1, 0.8
+        font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
+        size_hint: None, None
+        width: self.parent.width
+        height: self.texture_size[1] + 3
+        pos_hint: {'center_x': 0.5, 'center_y': 0}
+        canvas.before:
+            Color:
+                rgba: 0.8, 0.8, 0.8, 0.8
+            Rectangle:
+                pos: root.x, self.y - 5
+                size: root.width, 2
+            Color:
+                rgba: (0.1, 0.1, 0.1, 1)
+            RoundedRectangle:
+                pos: root.x, self.y
+                size: root.width, self.height
+                radius: [12, 0, 0, 0]
+        
+<SelectorCaller>:
+    size_hint: None, None
+    size: (450, 30)
+    pos_hint: {'center_x': 0.5, 'y': 0}
+    
+    canvas.before:
+        Color:
+            rgba: (0.18, 0.18, 0.18, 0.85)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12]
+
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+            width: 1
+    Image:
+        source: self.parent.icon
+        size_hint: None, None
+        size: (30, 30)
+        pos: (root.x + root.width - self.width, root.y)    
+    Label:
+        size_hint: None, None
+        font_size: 20
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        size: self.texture_size
+        text: self.parent.name
+
+<Event>:
+    size_hint_y: None
+    height: 40
+
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            points: [self.x, self.y, self.x + self.width, self.y]
+            width: 1  
+    canvas.before:
+        Color:
+            rgba: self.bg_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    
+
+    Label:
+        font_size: 20
+        text: self.parent.title
+        size_hint: None, None
+        size: self.texture_size
+        size_hint: None, None
+        pos_hint: {'x': 0.02, 'center_y': .5}
+        
+<ScrollEventInfo>
+    bar_width: 16
+    bar_color: 0.8, 0.8, 0.9, 0.7
+
+<EventInfo>
+    spacing: 8
+    size_hint_y: None
+  
+    StackLayout:
+        size_hint: None, None
+        size: (root.width, 200)
+        padding: 30, 0, 0, 0
+        spacing: 8
+        Image:
+            source: root.img
+            size_hint: None, None
+            size: (200, 200)
+            canvas.after:
+                Color:
+                    rgba: 0.9, 0.9, 1, 0.7
+                Line:
+                    rounded_rectangle: (self.x, self.y, self.width, self.height, 5)
+                    width: 1.6
+            
+        StackLayout:
+            size_hint: None, None
+            size: (240, 200)
+            orientation: "tb-lr"
+            Label: 
+                markup: True
+                text: "[b]Tipo de aventura:[/b]"
+                font_size: 22
+                size_hint: None, None
+                size: self.texture_size
+            Label:
+                text: root.type
+                font_size: 20
+                size_hint: None, None
+                size: self.texture_size
+                font_name: "fonts/symbola/Symbola.ttf"
+            Label: 
+                markup: True
+                text: "[b]Nivel de peligro:[/b]"
+                font_size: 22
+                size_hint: None, None
+                size: self.texture_size
+            Label:
+                text: root.danger
+                color: root.danger_color
+                font_size: 20
+                size_hint: None, None
+                size: self.texture_size
+                font_name: "fonts/symbola/Symbola.ttf"
+            Label: 
+                markup: True
+                text: "[b]Ubicacion:[/b]"
+                font_size: 22
+                size_hint: None, None
+                size: self.texture_size
+                padding: 0, 20, 0, 0
+            Label:
+                text: root.place
+                font_size: 20
+                size_hint: None, None
+                size: self.texture_size
+                font_name: "fonts/symbola/Symbola.ttf"
+                text_size: 250, None
+    Label:
+        markup: True
+        text: "[b] Descripcion: [/b]"
+        font_size: 24
+        size_hint: None, None
+        size: self.texture_size 
+        pos_hint:{'x': 0.05, 'y':0}
+        index: 0
+    Label:
+        size_hint: None, None
+        size: 450, self.texture_size[1] + 20
+        pos_hint:{'center_x': .5, 'y':0}
+        text_size: self.width - 20, None
+        halign: "left"
+        markup: 0
+        font_size: 18
+        index: 0
+        id: description
+    
+        canvas.before:
+            Color:
+                rgba: 0.15, 0.15, 0.2, 0.5
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [12]
+
+        canvas.after:
+            Color:
+                rgba: 1, 1, 1, 1
+            Line:
+                rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+                width: 1    
+
+    Label:
+        markup: True
+        text: "[b] Recursos necesarios: [/b]"
+        font_size: 24
+        size_hint: None, None
+        size: self.texture_size 
+        pos_hint:{'x': 0.05, 'y':0}
+        index: 0
+    NeedResources:
+        id: need
+        spacing: 4
+        index: 0
+        size_hint: None, None
+        width: root.width
+        
+    AddNeedButton:
+        index: 0
+        size_hint: None, None
+        size: (90, 30)
+        markup: True
+        text: "[b] Seleccionar [/b]"
+        padding: 10
+        pos_hint:{'x': 0.05, 'y':0}
+        
+    Label:
+        index: 0
+        markup: True
+        text: "[b] Fecha de la aventura: [/b]"
+        font_size: 24
+        size_hint: None, None
+        size: self.texture_size 
+        pos_hint:{'x': 0.05, 'y':0}
+    BoxLayout:
+        pos_hint: {'x': 0.06, 'y': 0}
+        size_hint: None, None
+        height: 30
+        DateIniButton:
+            font_size: 20
+            text: "Inicio"
+            size_hint: None, None
+            size: self.texture_size 
+            padding: 4
+        Label:
+            text: "-"
+            size_hint: None, None
+            pos_hint: {'center_x': .5, "center_y": .5}
+            width: 40
+        DateEndButton:
+            font_size: 20
+            text: "Final"
+            size_hint: None, None
+            size: self.texture_size
+            padding: 4
+    BoxLayout:
+        pos_hint: {'x': 0.05, 'y': 0}
+        size_hint: None, None
+        height: 30
+        Date:
+            id: dateini
+            font_size: 20
+            text: "No seleccionado!"
+            size_hint: None, None
+            size: self.texture_size 
+            padding: 4
+        Label:
+            text: "-"
+            size_hint: None, None
+            pos_hint: {'center_x': .5, "center_y": .5}
+            width: 40
+        Date:
+            id: datend
+            font_size: 20
+            text: "No seleccionado!"
+            size_hint: None, None
+            size: self.texture_size
+            padding: 4
+    Label:
+        index: 0
+        markup: True
+        text: "[b] Horario de inicio - fin: [/b]"
+        font_size: 24
+        size_hint: None, None
+        size: self.texture_size 
+        pos_hint:{'x': 0.05, 'y':0}
+    BoxLayout:
+        pos_hint: {'x': 0.06, 'y': 0}
+        size_hint: None, None
+        height: 30
+        TimeInput:
+            id: hourIni
+            name: "ini"
+            text: "00"
+            size_hint: None, None    
+            size: (30, 30)
+            max_text_length: 20
+            multiline: False
+        Label:
+            text: ":"
+            size_hint: None, None
+            pos_hint: {'center_x': .5, "center_y": .5}
+            width: 20
+        TimeInput:
+            id: minuIni
+            name: "ini"
+            text: "00"
+            size_hint: None, None    
+            size: (30, 30)
+            max_text_length: 20
+            multiline: False
+        Label:
+            text: "-"
+            size_hint: None, None
+            pos_hint: {'center_x': .5, "center_y": .5}
+            width: 40
+        TimeInput:
+            id: hourEnd
+            name: "end"
+            text: "00"
+            size_hint: None, None    
+            size: (30, 30)
+            max_text_length: 20
+            multiline: False
+        Label:
+            text: ":"
+            size_hint: None, None
+            pos_hint: {'center_x': .5, "center_y": .5}
+            width: 20
+        TimeInput:
+            id: minuEnd
+            name: "end"
+            text: "00"
+            size_hint: None, None    
+            size: (30, 30)
+            max_text_length: 20
+            multiline: False
+    Label:
+        index: 0
+        markup: True
+        text: "[b]Nota:[/b] Los horarios se interpretan en el formato de de 24 horas!"
+        font_size: 16
+        size_hint: None, None
+        size: self.texture_size
+        color: 1, 1, 1, 0.8
+        padding: 0, 10, 0, 0 
+        pos_hint: {'x': .06, "y": 0}
+
+    Label:
+        size_hint: None, None
+        height: 10
+        index: 0
+
+<AdventureButton>:
+    size_hint: None, None
+    width: 180
+
+<ListAdventures>:
+    size_hint: None, None
+    width: 180
+
+<Show>:
+    size_hint: None, None
+    size: 40, 40
+    pos_hint: {'center_x': 0.5, 'y': 0}
+
+<FloatContaier>:
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12, 12, 0, 0]
+
+
+<CommandAdventure>:
+    size_hint: None, None
+    pos_hint: {'center_x': .5, 'top': 0.005}
+    spacing: 10
+    padding: 10, 20, 10, 0
+    width: 390
+
+    canvas.after:
+        Color:
+            rgba: 0.8, 0.8, 0.8, 0.8
+        Line:
+            points: (self.x, self.top, self.x + self.width, self.top)
+            width: 3
+<BackButton>
+    canvas.after:
+        Color:
+            rgba: 0.8, 0.8, 0.8, 0.8
+        Line:
+            rounded_rectangle: (self.x, self.y + 20, self.width, 60, 8)
+            width: 1.2
+            
+<TimeInput>:
+    canvas.after:
+        Color:
+            rgba: (0.07, 0.07, 0.07, 0.95)
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 5)
+            width: 2

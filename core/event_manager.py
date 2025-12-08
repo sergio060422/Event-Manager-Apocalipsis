@@ -1,0 +1,211 @@
+import datetime as dt
+from utilities.utilities import *
+
+sg1 = "por favor verifique que los valores seleccionados sean correctos!"
+sg2 = "su aventura debe tener una duracion de al menos 24 horas!"
+
+def setEvent(event, isEditable = False, eventInfo = None):
+    if isEditable:
+        event["id"] = -1
+        event["necesita"] = []
+
+    writeJson('data/dynamic/current_event.json', [event])
+
+def getChar(s):
+    for c in s.split(" "):
+        if c != "":
+            return True
+    return False
+
+def validateEventInfo():
+    current = readJson("data/dynamic/current_event.json")[0]
+    resources = readJson("data/dynamic/selected_resources_event.json")
+    title, body = "Error al crear la aventura", ""
+
+    if getChar(current["titulo"]) == False:
+        body = "Debe escoger un nombre no vacio para su aventura"
+        return (False, title, body)
+    if getChar(current["descripcion"]) == False:
+        body = "Debe escoger una descripcion no vacia para su aventura"
+        return (False, title, body)
+    if len(resources) == 0:
+        body = "Su aventura debe tener al menos un recurso asignado"
+        return (False, title, body)
+
+    return True
+
+def checkEvent(eventInfo):
+    dateValid = None
+
+    if eventInfo.editable == None:
+        dateIni = eventInfo.dateIni.text
+        dateEnd = eventInfo.dateEnd.text
+        timeIni = (eventInfo.timeIni[0].text, eventInfo.timeIni[1].text)
+        timeEnd = (eventInfo.timeEnd[0].text, eventInfo.timeEnd[1].text)
+        dateValid = validDate(dateIni, dateEnd, timeIni, timeEnd)
+    else:
+        edit = eventInfo.editable
+        dateIni = edit.dateIni.text
+        dateEnd = edit.dateEnd.text
+        timeIni = (edit.timeIni[0].text, edit.timeIni[1].text)
+        timeEnd = (edit.timeEnd[0].text, edit.timeEnd[1].text)
+        dateValid = validDate(dateIni, dateEnd, timeIni, timeEnd)
+        
+        current = readJson("data/dynamic/current_event.json")[0]
+        current["titulo"] = edit.ids.name.text
+        current["tipo"] = [edit.ids.type.text]
+        current["descripcion"] = edit.ids.description.text
+        current["peligro"] = danger_words_inverse[edit.ids.danger.text]
+        current["ubicacion"] = edit.ids.place.text
+        
+        writeJson("data/dynamic/current_event.json", [current])
+
+    return dateValid
+
+def validDate(Ini, End, TimeIni, TimeEnd):
+    Ini = Ini.split("/")
+    End = End.split("/")
+    hi, mi = TimeIni[0], TimeIni[1]
+    he, me = TimeEnd[0], TimeEnd[1]
+    start, end = 0, 0
+    td = 0
+    try:
+        if len(hi + mi + he + me) > 8:
+            raise IndexError()
+        
+        hi, mi = int(hi), int(mi)
+        he, me = int(he), int(me)
+
+        start = dt.datetime(int(Ini[2]), int(Ini[1]), int(Ini[0]), hi, mi).timestamp()
+        end = dt.datetime(int(End[2]), int(End[1]), int(End[0]), he, me).timestamp()
+     
+        if hi < 0 or hi > 24 or he < 0 or he > 24:
+            raise IndexError()
+        if mi < 0 or mi > 59 or me < 0 or me > 59:
+            raise IndexError()
+        
+        td = dt.datetime(int(Ini[2]), int(Ini[1]), int(Ini[0]) + 1, hi, mi).timestamp()
+        
+        if td > end: 
+            raise Exception()
+          
+    except Exception as e:
+        return sg1 if type(e) == IndexError or type(e) == ValueError else sg2    
+    else:
+        return ((start, end), (Ini, End), ((hi, mi), (he, me)))
+
+def validResources():
+    event = readJson("data/dynamic/current_event.json")[0]
+    resources = readJson("data/dynamic/selected_resources_event.json")
+
+    for need in event["necesita"]:
+        res_need = get_one(need)
+
+        if not (res_need in resources):
+            return "uno de los recursos necesarios para el evento no se encuentra entre los seleccionados!"
+
+    for resource in resources:
+        for exclud in resource["excluyente"]:
+            value = getOneByName(exclud, "data/dynamic/selected_resources_event.json")
+
+            if value != False:
+                return "verifique para cada recurso que su excluyente no se encuentre seleccionado!"
+        
+        flag = False
+
+        for complement in resource["complementario"]:
+            value = getOneByName(complement, "data/dynamic/selected_resources_event.json")
+         
+            if value != False:
+                flag = True
+                break
+        
+        if not flag:
+            return "verifique que cada recurso este seleccionado junto con su complementario!"
+ 
+
+    resorceList = appList().mycon.layo.rlist
+    answer = []
+
+    for child in resorceList.children:
+        cuantity = int(child.cuantity.text)
+        resource = get_one(child.id)
+        
+        if cuantity > resource["cantidad"]:
+            return "verifique que la cantidad seleccionada de cada recurso no exceda la cantidad disponible en el inventario!"            
+
+        answer.append((child.id, cuantity))
+
+    return answer
+
+def interception(l1, r1, l2, r2):
+    if (l1 <= l2 and l2 <= r1) or (l2 <= l1 and l1 <= r2):
+        return True
+    
+    return False
+
+def verifyInterval(event, ini, end):
+    nested, resources = [], {}
+
+    for runEvent in readJson("data/dynamic/running_events.json"):
+        timeEvent = runEvent["tiempoReal"]
+
+        if interception(timeEvent[0], timeEvent[1], ini, end):
+            for type in runEvent["recursos"]:
+                cuantity = resources.get(type, 0)
+                resources.update({type: cuantity + runEvent["recursos"][type]})
+                myCuantity = event["recursos"].get(int(type), 0)
+                total = get_one(int(type))["cantidad"]
+                if myCuantity + resources[type] > total:
+                    return False
+                
+    return True
+
+def toDate(value):
+    return dt.datetime.fromtimestamp(value, tz=dt.timezone.utc)
+
+def getDate(day, month, year):
+    return dt.datetime(year, month, day).timestamp() 
+
+def joinTime(event):
+    ini = event["tiempoReal"][0]
+    end = event["tiempoReal"][1]
+    time = end - ini
+    default = getDate(1, 1, 2077)
+    
+    if verifyInterval(event, default, default + time):
+        return (default, default + time)
+
+    for e in readJson("data/dynamic/running_events.json"):
+        tr = e["tiempoReal"]
+        if verifyInterval(event, tr[1] + 60, tr[1] + 60  + time):
+            return (tr[1] + 60, tr[1] + 60 + time)     
+
+def mergeInformation(Date, Resources):
+    event = readJson("data/dynamic/current_event.json")[0]
+
+    event["recursos"] = dict(Resources)
+    event["tiempoReal"] = Date[0]
+    event["fechaInicio"] = Date[1][0]
+    event["fechaFin"] = Date[1][1]
+    event["tiempoInicio"] = Date[2][0]
+    event["tiempoFin"] = Date[2][1]
+    
+    if event["id"] == -1:
+        main = appList().mycon
+        event["imagen"] = join_child(main, "PathImage").text
+    else:
+        event["imagen"] = f"assets/event_running_images/{event["id"]}.png"
+    
+    return event    
+
+def createEvent(event):
+    if verifyInterval(event, event["tiempoReal"][0], event["tiempoReal"][1]):
+        return (True, toDate(event["tiempoReal"][0]), toDate(event["tiempoReal"][1]))
+    else:
+        hole = joinTime(event)
+        dateIni = toDate(hole[0])
+        dateEnd = toDate(hole[1])
+        event["tiempoReal"] = (hole[0], hole[1])
+        return (False, (dateIni, dateEnd), (hole[0], hole[1]))
+    

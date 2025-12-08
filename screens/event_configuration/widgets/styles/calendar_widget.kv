@@ -1,0 +1,105 @@
+# Widget que contiene la cuadrícula de días del calendario
+<Calendar@BoxLayout>:
+    size_hint: None, None
+    width: 360
+    height: 250
+    pos_hint: {'center_x': .5, 'center_y': .5}
+    orientation: "lr-tb" # De izquierda a derecha, de arriba a abajo
+    spacing: 1
+
+# Estilo visual para cada día individual en el calendario
+<Day>:
+    font_size: 24
+    color: 0.8, 0.8, 0.8, 1
+    size_hint: None, None
+    size: (50, 50)
+
+# Contenedor para los botones de navegación (mes anterior/siguiente)
+<ButtonContainer>:
+    size_hint: None, None
+    size: (360, 50)
+    padding: 5, 10, 5, 0
+    # Línea separadora entre el widget del calendario y los botones
+    canvas.after:
+        Color:
+            rgba: 0.8, 0.8, 0.8, 0.8
+        Line:
+            points: (self.x, self.y + 50, self.x + self.width, self.y + 50)
+            width: 1
+
+# Botón para avanzar al siguiente mes
+<AdvanceMonth>:
+    size_hint: None, None
+
+# Botón para retroceder al mes anterior
+<PreviousMonth>:
+    size_hint: None, None
+  
+# Widget principal que agrupa todo el calendario
+<TotalCalendar>:
+    orientation: "vertical"
+    # Fondo oscuro semitransparente para el calendario
+    canvas.before:
+        Color:
+            rgba: (0.07, 0.07, 0.07, 0.95)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    # Borde redondeado gris claro
+    canvas.after:
+        Color:
+            rgba: 0.8, 0.8, 0.8, 0.8
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+            width: 1.2
+        
+        
+    size_hint: None, None
+    size: 360, 380
+    padding: 0, 0, 0, 10
+    pos_hint: {'right': 1, 'top': 1}
+    
+# Cabecera del calendario que muestra el mes y año actual
+<Info>
+    size_hint: None, None
+    # Fondo ligeramente más claro que el principal para la cabecera
+    canvas.before:
+        Color:
+            rgba: (0.1, 0.1, 0.1, 1) 
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    # Línea separadora inferior entre la cabecera y el calendario
+    canvas.after:
+        Color:
+            rgba: 0.8, 0.8, 0.8, 0.8
+        Line:
+            points: (self.x, self.y, self.x + self.width, self.y)
+            width: 1
+
+    size: (360, 78)
+    orientation: "vertical"
+    padding: 8
+    index: 0
+    
+    # Etiqueta del mes
+    Label:
+        text: "Enero"
+        id: month
+        font_size: 28
+        color: 1, 1, 1, 0.8
+        size_hint: None, None
+        size: self.texture_size
+        pos_hint: {'center_x': .5, 'y': 0}
+    
+    # Etiqueta del año
+    Label:
+        text: "2077"
+        id: year
+        font_size: 20
+        color: 1, 1, 1, 0.8
+        size_hint: None, None
+        size: self.texture_size
+        pos_hint: {'center_x': .5, 'y': 0}
+        
+    

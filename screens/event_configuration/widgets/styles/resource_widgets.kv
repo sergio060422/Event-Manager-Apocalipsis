@@ -1,0 +1,201 @@
+           
+# Layout principal para la sección de "Mochila" o inventario de recursos de la aventura
+<ResourcesLayoutP@BoxLayout>:
+    orientation: 'vertical'
+    padding: 4
+    spacing: 8
+    # Fondo oscuro con esquinas redondeadas (solo superior derecha)
+    canvas.before:
+        Color:
+            rgba:(0.12, 0.12, 0.12, 0.9)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [0, 12, 0, 0]
+
+    # Título de la sección
+    Label: 
+        text: 'Mochila'
+        font_size: 36
+        color: 1, 1, 1, 0.8
+        font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
+        size_hint: None, None
+        size: self.texture_size
+        pos_hint: {'center_x': .5, 'y': 0}
+        # Fondo del título y línea separadora
+        canvas.before:
+            Color:
+                rgba: 0.8, 0.8, 0.8, 0.8
+            Rectangle:
+                pos: root.x, self.y - 4
+                size: root.width, 2
+            Color:
+                rgba: (0.1, 0.1, 0.1, 1)
+            RoundedRectangle:
+                pos: root.x, self.y
+                size: root.width, self.height
+                radius: [0, 12, 0, 0]
+        size: self.texture_size
+
+
+# Contenedor para la lista de recursos (items)
+<ResourceListP>:
+    spacing: 2
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 0 # Fondo transparente
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+# Representación visual de un recurso individual en la lista
+<ResourceP>:
+    size_hint: None, None
+    size: 66.6, 65
+    # Borde del recurso, cambia de color al seleccionarse (controlado por self.my_color en el .py correspondiente)
+    canvas.after:
+        Color:
+            rgba: self.my_color
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+            width: 1.5
+
+# Panel de información detallada del recurso que tiene el cursor encima
+<ResourceInfoLayoutP>:
+    # Fondo oscuro semitransparente con bordes redondeados
+    canvas.before:
+        Color:
+            rgba: (0.12, 0.12, 0.12, 0.9)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12]
+
+    # Bordes y líneas decorativas
+    canvas.after:
+        Color:
+            rgba: 0.8, 0.8, 0.8, 0.8
+        # Borde exterior
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+            width: 1.5
+        # Líneas decorativas internas para separar la imagen del texto
+        Line:
+            rectangle: (0, self.y + (self.height - 120), 120, self.height)
+            width: 1
+        Line:
+            rectangle: (0, self.y + (self.height - 120), self.width, self.y + (self.height - 120))
+            width: 1
+    
+    size_hint: None, None
+    size: 300, 400
+    pos_hint: {'x': 0, 'top':1}
+    padding: 10
+    spacing: 10
+    opacity: 0 # Inicialmente oculto hasta que alguno de los recursos tenga el cursor encima
+    
+    # Imagen del recurso
+    Image:
+        source: root.img_source
+        size_hint: None, None
+        size: 100, 100
+
+    # Bloque de información básica (Nombre, Tipo, Cantidad)
+    StackLayout:
+        # Fondo transparente
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        size_hint: None, None
+        size: 170, 110
+        padding: 4
+
+        # Nombre del recurso
+        Label:
+            markup: True
+            text: "[b] Nombre: [/b]" + root.name
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+
+        # Tipo del recurso
+        Label:
+            markup: True
+            text: "[b] Tipo: [/b]" + root.type
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+
+        # Cantidad total del recurso
+        Label:
+            markup: True
+            text: "[b] Cantidad: [/b]" + root.cuantity
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+
+    # Bloque de descripción del recurso
+    StackLayout:
+        canvas.before:
+            Color:
+                rgba: 1, 0, 1, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        size_hint: None, None
+        size: 280, 110
+
+        # Texto descriptivo del recurso
+        Label:
+            markup: True
+            text: "[b] Descripcion: [/b]" + root.description
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+            
+    # Bloque de relaciones (Complementario, Excluyente)
+    StackLayout:
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: "bt-lr"
+        size_hint: None, None
+        size: 280, 140
+
+        # Complementario
+        Label:
+            markup: True
+            text: "[b] Complementario: [/b]" + root.complementary
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+        
+        #Excluyente
+        Label:
+            markup: True
+            text: "[b] Excluyente: [/b]" + root.exclude
+            font_size: 17
+            text_size: self.parent.width, None
+            size_hint: None, None
+            size: self.texture_size
+    
+# Icono de eliminación que aparece sobre un recurso seleccionado
+<Delete>:
+    source: "assets/delete.png"
+    pos_hint: {'center_x': .5, 'y': 0}
+    size_hint: None, None
+    width: 200
+    
