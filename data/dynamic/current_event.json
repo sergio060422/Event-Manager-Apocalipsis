@@ -1,19 +1,67 @@
 [
     {
-        "id": 1,
-        "titulo": "Aniquilamiento en la vecindad",
+        "id": 5,
+        "titulo": "\u00a1Vu\u00e9lvete tramposo!",
         "tipo": [
-            "Defensa"
+            "Refugio"
         ],
-        "descripcion": "Nunca est\u00e1 de m\u00e1s salir un rato a estirar las piernas por los alrededores del refugio y eliminar alg\u00fan que otro infectado por el camino, pero ten cuidado no te sigan al regresar!",
-        "peligro": 2,
-        "ubicacion": "Alrededores del refugio",
+        "descripcion": "Desde hoyos con p\u00faas hasta cuerdas decapitadoras, todo en este juego de la supervivencia vale. Ampl\u00eda las trampas en tu refugio para aumentar tus probabilidades de supervivencia en caso de una invasi\u00f3n.",
+        "peligro": 1,
+        "ubicacion": "Patio exterior",
         "necesita": [
-            1,
-            2,
-            7,
-            8
+            13,
+            14,
+            15,
+            16
         ],
         "recurrente": false
+    },
+    {
+        "id": 5,
+        "titulo": "\u00a1Vu\u00e9lvete tramposo!",
+        "tipo": [
+            "Refugio"
+        ],
+        "descripcion": "Desde hoyos con p\u00faas hasta cuerdas decapitadoras, todo en este juego de la supervivencia vale. Ampl\u00eda las trampas en tu refugio para aumentar tus probabilidades de supervivencia en caso de una invasi\u00f3n.",
+        "peligro": 1,
+        "ubicacion": "Patio exterior",
+        "necesita": [
+            13,
+            14,
+            15,
+            16
+        ],
+        "recurrente": false,
+        "recursos": {
+            "16": 1,
+            "15": 1,
+            "14": 1,
+            "13": 1,
+            "8": 1,
+            "7": 1
+        },
+        "tiempoReal": [
+            3376875660.0,
+            3376962060.0
+        ],
+        "fechaInicio": [
+            "2",
+            "1",
+            "2077"
+        ],
+        "fechaFin": [
+            "3",
+            "1",
+            "2077"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "imagen": "assets/event_running_images/5.png"
     }
 ]

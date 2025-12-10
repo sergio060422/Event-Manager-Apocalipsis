@@ -1,19 +1,19 @@
 # Event Manager Apocalipsis
 
-Bienvenido a **Event Manager Apocalipsis**, una herramienta de gestión de supervivencia diseñada para administrar recursos y eventos en un refugio post-apocalíptico.
+Bienvenido a **Event Manager Apocalipsis**, una herramienta de gestión de supervivencia diseñada para administrar recursos y eventos en un refugio postapocalíptico.
 
 ## 🌐 Dominio del Proyecto
-El dominio elegido es una **Apocalipsis Zombie**. 
+El dominio elegido es un **Apocalipsis Zombie**. 
 
 **¿Por qué?**
 Este escenario permite explorar la gestión de recursos limitados bajo presión, la toma de decisiones estratégicas y la planificación de eventos críticos. Combina la lógica de inventario con una narrativa de supervivencia inmersiva, ofreciendo un desafío interesante tanto a nivel de programación como de experiencia de usuario.
 
-Al ser un tema icónico en la cultura popular —presente en cine, videojuegos y literatura—, resulta fascinante colocar al usuario en el rol de líder de un refugio postapocaliptico. Este programa actúa como un **gestor de eventos** administrativo, cuyo propósito es brindar la interfaz necesaria para organizar misiones y administrar los recursos vitales para la supervivencia. Todo ello enmarcado en una realidad distópica donde la humanidad enfrenta la extinción a causa de un hongo parásito que transforma a sus huéspedes en criaturas hostiles.
+Al ser un tema icónico en la cultura popular —presente en cine, videojuegos y literatura—, resulta fascinante colocar al usuario en el rol de líder de un refugio postapocalíptico. Este programa actúa como un **gestor de eventos** administrativo, cuyo propósito es brindar la interfaz necesaria para organizar misiones y administrar los recursos vitales para la supervivencia. Todo ello enmarcado en una realidad distópica donde la humanidad enfrenta la extinción a causa de un hongo parásito que transforma a sus huéspedes en criaturas hostiles.
 
 ## 🧟 Eventos y Recursos
 
 ### Eventos (Aventuras)
-Los eventos, también denominados **aventuras**, son situaciones que planificaria el lider para asegurar la supervivencia del refugio. Se clasifican en 3 tipos: **Defensa**, **Refugio** y **Supervivencia**.
+Los eventos, también denominados **aventuras**, son situaciones que planificaría el líder para asegurar la supervivencia del refugio. Se clasifican en 3 tipos: **Defensa**, **Refugio** y **Supervivencia**.
 
 - **Defensa:** Actividades orientadas a la protección del perímetro, eliminación de amenazas cercanas y mantenimiento del arsenal bélico.
 - **Refugio:** Tareas internas de mantenimiento y reparación de las instalaciones del refugio.
@@ -21,14 +21,14 @@ Los eventos, también denominados **aventuras**, son situaciones que planificari
 
 A continuación se listan los eventos predefinidos disponibles en el sistema. Estos eventos cuentan con un conjunto mínimo de recursos necesarios para su ejecución; no obstante, es posible asignar recursos adicionales si se considera oportuno. Además, el sistema permite la creación de **eventos personalizados**, que permiten al usuario elegir libremente sus recursos y especificaciones.
 
-#### Lista de Eventos Predefinidos:
+### Lista de Eventos Predefinidos:
 
 - **Aniquilamiento en la vecindad:** Salidas rutinarias para limpiar los alrededores del refugio de infectados.
-- **Expedición al bunker abandonado:** Misiones peligrosas para reducir la amenaza de ataques masivos desde el bunker del sur.
+- **Expedición al búnker abandonado:** Misiones peligrosas para reducir la amenaza de ataques masivos desde el búnker del sur.
 - **Limpieza de carreteras:** Despejar las rutas cercanas para asegurar una vía de escape en caso de emergencia.
 - **Preparar el armamento:** Mantenimiento preventivo de las armas en el cuarto de armamento.
-- **Vuelvete tramposo!:** Instalación y mejora de trampas en el patio exterior para la defensa del refugio.
-- **Podar el jardin:** Despejar el perímetro del refugio cuando los infectados rompen la cerca electrificada.
+- **¡Vuélvete tramposo!:** Instalación y mejora de trampas en el patio exterior para la defensa del refugio.
+- **Podar el jardín:** Despejar el perímetro del refugio cuando los infectados rompen la cerca electrificada.
 - **Bombillas defectuosas:** Mantenimiento de las torres de iluminación.
 - **Tapar los agujeros:** Reparación de fisuras en puertas y ventanas para evitar intrusiones.
 - **Depurar H2O:** Cambio de filtros en el módulo de purificación para asegurar agua potable.
@@ -103,26 +103,109 @@ Es aquel recurso que no puede coexistir con otro en la misma misión. Ya sea por
 ## 🛠️ Funcionalidades y Mecánicas
 
 *   **Gestión de Eventos:** Planificación y seguimiento de misiones críticas con fechas de inicio, fin y duración.
-*   **Visualización Temporal:** Generación de **Diagramas de Gantt** con **Matplotlib** para visualizar la duración y solapamiento de las misiones en el tiempo.
-*   **Sistema de Inventario Lógico:** Manejo de recursos mediante **pools de cantidad limitada**, junto con reglas complejas de **complementariedad** y **exclusión**
+*   **Visualización Temporal:** Generación de **Diagrama de Gantt** con **Matplotlib** para visualizar la duración y solapamiento de las misiones en el tiempo.
+*   **Sistema de Inventario Lógico:** Manejo de recursos mediante **pools de cantidad limitada**, junto con reglas complejas de **complementariedad** y **exclusión**.
 *   **Persistencia y Portabilidad:** Capacidad de **cargar y guardar** el estado completo de la lista de eventos en archivos JSON, permitiendo respaldos y gestión manual de archivos.
 *   **Interfaz Gráfica (GUI):** Construida con **Kivy**, ofreciendo una experiencia visual interactiva y temática.
 *   **Ambientación Inmersiva:** Textos y descripciones diseñados para sumergir al usuario en la narrativa de supervivencia.
 
+## 📂 Estructura del Proyecto
 
+```text
+Event-Manager-Apocalipsis/
+├── assets/                 # Imágenes, iconos y recursos gráficos
+├── core/                   # Lógica central del sistema
+│   ├── event_creation.py   # Lógica para instanciar nuevos eventos
+│   └── event_manager.py    # Gestión del ciclo de creación de los eventos
+├── data/                   # Almacenamiento de datos JSON
+│   ├── dynamic/            # Datos persistentes
+│   │   ├── current_event.json            # Datos temporales del evento en configuración
+│   │   ├── running_events.json           # Lista de eventos activos 
+│   │   ├── selected_resources.json       # Inventario actual del usuario
+│   │   └── selected_resources_event.json # Recursos asignados a un evento específico
+│   └── static/             # Datos estáticos
+│       ├── events.json     # Definiciones de tipos de eventos predefinidos
+│       └── resources.json  # Catálogo de recursos y sus propiedades
+├── fonts/                  # Fuentes tipográficas personalizadas
+├── screens/                # Pantallas de la interfaz
+│   ├── event_configuration/                # Configuración del evento 
+│   │   ├── styles/
+│   │   │   └── configuration.kv            # Estilos de la pantalla de configuración
+│   │   ├── widgets/                        # Elementos del panel (calendario, mochila)
+│   │   │   ├── styles/
+│   │   │   │   ├── calendar_widget.kv      # Estilos del calendario interactivo
+│   │   │   │   ├── editable_event.kv       # Estilos para edición de eventos personalizados
+│   │   │   │   └── resource_widgets.kv     # Estilos para el panel de información de recurso
+│   │   │   ├── calendar_widget.py          # Lógica del calendario interactivo
+│   │   │   ├── configuration_buttons.py    # Botones de control para la configuración
+│   │   │   ├── configuration_widgets.py    # Widgets generales de configuración
+│   │   │   ├── editable_event.py           # Lógica para crear eventos personalizados
+│   │   │   └── resource_widgets.py         # Lógica del panel de información de recurso
+│   │   └── configuration.py                # Controlador principal de la pantalla de configuración
+│   ├── event_list/
+│   │   ├── graphic/
+│   │   │   └── plot.py                     # Generación del diagrama de Gantt con Matplotlib
+│   │   ├── styles/
+│   │   │   └── events.kv                   # Estilos de la lista de eventos
+│   │   └── events.py                       # Controlador de la pantalla de lista de eventos
+│   └── init_menu/
+│       ├── styles/
+│       │   ├── face.kv                     # Estilos del menú de inicio
+│       │   └── file_selector.kv            # Estilos del selector de archivos
+│       ├── face.py                         # Lógica del menú de inicio
+│       └── file_selector.py                # Lógica del selector de archivos
+├── utilities/              # Funciones auxiliares
+│   ├── styles/
+│   │   └── ui_utils.kv     # Estilos de componentes reutilizables 
+│   ├── ui_utils.py         # Componentes de UI comunes y animaciones
+│   └── utilities.py        # Funciones de ayuda generales
+├── main.kv                 # Estilo del inventario de recurso y estructura de la aplicación
+├── main.py                 # Lógica principal de la aplicación y del selector de recursos
+├── requirements.txt        # Dependencias del proyecto
+└── README.md               # Documentación
+```
 
 ## 🚀 Ejecución y Uso
 
-### Requisitos Previos
-Asegúrate de tener Python instalado. Se recomienda usar un entorno virtual.
+Sigue estos pasos para poner en marcha el refugio en tu máquina local.
 
-1.  **Instalar dependencias:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+### 1. Instalación de Python
+Si aún no tienes Python instalado en tu sistema:
+*   Ve al sitio oficial: [python.org/downloads](https://www.python.org/downloads/)
+*   Descarga e instala la versión más reciente (se recomienda 3.8 o superior).
+*   **Importante:** Durante la instalación, asegúrate de marcar la casilla **"Add Python to PATH"**.
 
-### Ejecutar el Programa
-Para iniciar la aplicación, ejecuta el archivo principal desde la terminal:
+### 2. Configuración del Entorno Virtual (Recomendado)
+Es una buena práctica aislar las dependencias del proyecto para evitar conflictos.
+
+**En Windows:**
+```bash
+# Crear el entorno virtual
+python -m venv venv
+
+# Activar el entorno
+.\venv\Scripts\activate
+```
+
+**En Linux / macOS:**
+```bash
+# Crear el entorno virtual
+python3 -m venv venv
+
+# Activar el entorno
+source venv/bin/activate
+```
+*Verás que el nombre de tu entorno (venv) aparece al principio de la línea de comandos.*
+
+### 3. Instalación de Dependencias
+Con el entorno activado, instala las librerías necesarias listadas en el archivo `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Ejecutar la Aplicación
+Una vez que todo esté listo, lanza el programa con el siguiente comando:
 
 ```bash
 python main.py
@@ -162,7 +245,7 @@ Tras pulsar **Comenzar** en el menú anterior, accederás a esta ventana, el cor
 
 <img src="assets/readme/ui_3.png" width="800">
 
-Si pasas el cursor por encima de cualquier recurso en el inventario, aparecerá un panel en la esquina superior izquierda con información detallada sobre el mismo (nombre, descripción, tipo, etc.)
+Si pasas el cursor por encima de cualquier recurso en el inventario, aparecerá un panel en la esquina superior izquierda con información detallada sobre el mismo (nombre, descripción, tipo, etc.).
 
 #### Panel de Acciones
 
@@ -221,6 +304,78 @@ Si te sientes con el coraje de moldear tu propia aventura entonces este es tu lu
 Por supuesto, tu aventura debe tener una imagen horrorosa que represente lo peligrosa que puede llegar a ser. Para ello, puedes pulsar en el botón **Seleccionar** debajo de la imagen y se abrirá un selector de archivos con el cual podrás navegar por tus directorios y seleccionar cualquier imagen que desees en formato .png/.jpg. ¡Asegúrate de que sea lo suficientemente horrenda! 🐱
 
 Por último, y al igual que para las aventuras predefinidas, tenemos la sección de selección de fecha y hora. No se hará hincapié en la misma pues ya fue descrita arriba (ver **Aventura Predefinida** ⬆️).
+
+#### Panel Derecho: Mochila
+
+Este panel es algo menos complicado que el anterior. Aquí encontrarás una lista con los recursos seleccionados para la aventura. En la esquina inferior derecha de cada recurso se puede ver la cantidad seleccionada.
+
+A continuación, se listan las acciones disponibles:
+
+*   **Evento de Toque:** Al pulsar un recurso, este se selecciona igual que en la ventana anterior. Un icono de cesto de basura se mostrará sobre el recurso; para eliminarlo de los seleccionados, basta con pulsar de nuevo sobre él.
+*   **Evento de Hover:** Al colocar el cursor sobre un recurso, e igualmente como en la ventana anterior, se muestra el panel de información en la esquina superior izquierda y se hace focus a la entrada de texto numérica que representa la cantidad. De esta forma, puedes escribir directamente la cantidad que deseas asignar al recurso.
+
+#### Panel de Acciones
+
+<img src="assets/readme/ui_7.png" width="800">
+
+Al igual que en la ventana anterior, este panel se muestra al colocar el cursor cerca de la zona inferior. La diferencia en este es que un nuevo botón ha aparecido: **Crear aventura**. Al pulsarlo, se comprueba la información introducida y se procede a crear la aventura en caso de ser válida.
+
+### 4. Lista de Aventuras
+
+<img src="assets/readme/ui_8.png" width="800">
+
+Ahora que has creado tu primera aventura, seguramente deseas verla en algún lugar. Para ello tenemos esta ventana; puedes acceder a ella desde el menú de inventario o el menú de configuración de evento mediante el botón de **Ver Aventuras** situado en el panel inferior.
+
+Veamos entonces cómo se encuentra estructurada nuestra ventana:
+
+#### Panel Superior
+
+*   **A la derecha:**
+    *   **Barra de búsqueda:** Permite buscar eventos por el nombre.
+    *   **Botón de ordenamiento:** Permite ordenar los eventos por su ID.
+*   **A la izquierda:**
+    *   **Botón de Gráfica:** Muestra la gráfica o Diagrama de Gantt.
+    *   **Botón Volver:** Permite regresar a la ventana anterior.
+
+#### Panel Inferior
+
+Aquí encontrarás una lista con todos los eventos planificados actualmente. Cada evento en la lista es modelado como una tarjeta.
+
+<p align="center">
+  <img src="assets/readme/ui_8.2.png" width="400">
+</p>
+
+Cada tarjeta contiene información básica del evento (nombre, descripción, etc.), además de 2 botones para interactuar con el mismo:
+
+*   **Botón de Ver detalles:** Al pulsarlo se abre la Ventana Emergente que muestra la información detallada del evento.
+*   **Botón de Borrar evento:** Al pulsarlo se borra el evento correspondiente.
+
+#### Ventana Emergente
+
+<img src="assets/readme/ui_8.1.png" width="800">
+
+Tras pulsar el botón de **Ver detalles** en alguna de las tarjetas, se abrirá esta ventana que nos muestra toda la información del evento.
+
+Los iconos en el tipo corresponden a:
+*   **Defensa:** Revólver 🔫
+*   **Refugio:** Casa 🏠
+*   **Supervivencia:** Hoguera 🔥
+
+### 5. Gráfico (Diagrama de Gantt)
+
+<img src="assets/readme/ui_9.png" width="800">
+
+Este gráfico contiene información detallada visual sobre los distintos eventos planificados y su solapamiento. En el **eje X** se encuentran cada uno de los días hasta la fecha máxima en que se ha planificado un evento, mientras que en el **eje Y** tenemos los eventos (aventuras) representados por su ID.
+
+Cada evento predefinido tiene un color único, mientras que los eventos personalizados tienen color **morado**.
+
+Mediante las flechas del teclado es posible navegar por el gráfico:
+*   **Eje X (Tiempo):** Flechas izquierda y derecha ⬅️ ➡️
+*   **Eje Y (Eventos):** Flechas arriba y abajo ⬆️ ⬇️
+
+Las instrucciones de cómo acceder al gráfico se encuentran en la sección anterior.
+
+> **Nota:** Por conveniencia para el estilo visual del gráfico, se limitó la duración mínima de un evento a 1 día.
 
 ---
 *Sobrevive, gestiona y prospera.*

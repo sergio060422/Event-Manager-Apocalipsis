@@ -30,5 +30,67 @@
             "Machetes oxidados"
         ],
         "cantidad": 14
+    },
+    {
+        "id": 13,
+        "nombre": "Kit de Seguridad de Refugio (KSR)",
+        "descripcion": "Este kit creado por el abuelo es lo mejor para realizar reparaciones en las \u00e1reas m\u00e1s sensibles del refugio; despu\u00e9s de la \u00faltima oleada fue perfeccionado y actualizado.",
+        "tipo": [
+            "Refugio"
+        ],
+        "complementario": [
+            "Placa reforzante"
+        ],
+        "excluyente": [
+            "Kit de mantenimiento de Refugio (KMR)"
+        ],
+        "cantidad": 8
+    },
+    {
+        "id": 14,
+        "nombre": "Placa reforzante",
+        "descripcion": "Como su nombre indica, esta placa fabricada con fibra de carbono puede reforzar cualquier tipo de estructura del refugio con tan solo un par de martillazos; se instala con el KSR.",
+        "tipo": [
+            "Refugio"
+        ],
+        "complementario": [
+            "Kit de Seguridad de Refugio (KSR)"
+        ],
+        "excluyente": [
+            "Aceite de motor"
+        ],
+        "cantidad": 12
+    },
+    {
+        "id": 15,
+        "nombre": "Polkish, el abuelo",
+        "descripcion": "Al abuelo Polkish lo encontramos en nuestro actual refugio junto a su adorable Husky del refugio, es un experto en exploraci\u00f3n y supervivencia",
+        "tipo": [
+            "Refugio",
+            "Supervivencia"
+        ],
+        "complementario": [
+            "Ziggy el filoso"
+        ],
+        "excluyente": [
+            "Navaja suiza de Osvaldo"
+        ],
+        "cantidad": 1
+    },
+    {
+        "id": 16,
+        "nombre": "Ziggy el filoso",
+        "descripcion": "Este cuchillo Bowie pertenece al abuelo; tiene un filo descomunal, parece que fue tra\u00eddo de otro planeta.",
+        "tipo": [
+            "Supervivencia"
+        ],
+        "complementario": [
+            "Polkish, el abuelo",
+            "Piedra de afilar"
+        ],
+        "excluyente": [
+            "Piedra de afilar"
+        ],
+        "cantidad": 1
     }
 ]
