@@ -222,6 +222,16 @@ python3 -m venv venv
 # Activar el entorno
 source venv/bin/activate
 ```
+
+***Fish (shell)***
+```fish
+# Crear el entorno
+python3 -m venv venv
+
+# Activar el entorno
+source venv/bin/activate.fish
+```
+
 *Nota: Cuando el entorno está activo, verás `(venv)` al principio de la línea en tu terminal.*
 
 ### 3. Instalar Dependencias
