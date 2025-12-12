@@ -1,65 +1,14 @@
 [
     {
-        "id": 1,
-        "titulo": "Aniquilamiento en la vecindad",
+        "id": -1,
+        "titulo": "Atender cultivos",
         "tipo": [
-            "Defensa"
+            "Supervivencia"
         ],
-        "descripcion": "Nunca est\u00e1 de m\u00e1s salir un rato a estirar las piernas por los alrededores del refugio y eliminar alg\u00fan que otro infectado por el camino, pero ten cuidado no te sigan al regresar!",
-        "peligro": 2,
-        "ubicacion": "Alrededores del refugio",
-        "necesita": [
-            1,
-            2,
-            7,
-            8
-        ],
-        "recurrente": false
-    },
-    {
-        "id": 1,
-        "titulo": "Aniquilamiento en la vecindad",
-        "tipo": [
-            "Defensa"
-        ],
-        "descripcion": "Nunca est\u00e1 de m\u00e1s salir un rato a estirar las piernas por los alrededores del refugio y eliminar alg\u00fan que otro infectado por el camino, pero ten cuidado no te sigan al regresar!",
-        "peligro": 2,
-        "ubicacion": "Alrededores del refugio",
-        "necesita": [
-            1,
-            2,
-            7,
-            8
-        ],
-        "recurrente": false,
-        "recursos": {
-            "8": 1,
-            "7": 1,
-            "2": 1,
-            "1": 1
-        },
-        "tiempoReal": [
-            3376702800.0,
-            3377912400.0
-        ],
-        "fechaInicio": [
-            "1",
-            "1",
-            "2077"
-        ],
-        "fechaFin": [
-            "15",
-            "1",
-            "2077"
-        ],
-        "tiempoInicio": [
-            0,
-            0
-        ],
-        "tiempoFin": [
-            0,
-            0
-        ],
-        "imagen": "assets/event_running_images/1.png"
+        "descripcion": "Tu cuerpo no aguantar\u00e1 mucho tiempo comiendo solamente comida enlatada, pr\u00e9stale atenci\u00f3n a tus cultivos y al menos comer\u00e1s como un rey hasta que los infectados te coman a ti el cerebro",
+        "peligro": 1,
+        "ubicacion": "Patio exterior",
+        "necesita": [],
+        "recurrente": true
     }
 ]

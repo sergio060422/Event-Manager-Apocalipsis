@@ -1,5 +1,5 @@
 from modules.modules import *
-from utilities.utilities import *
+from modules.utilities import *
 from screens.event_list.graphic.plot import createGraph, plt
 from core.event_manager import *
 
@@ -378,7 +378,7 @@ class Sort(Image):
     def on_touch_down(self, touch):
         """Ordena los eventos por su numero al hacer clic."""
         if self.collide_point(*touch.pos) and not Disable.value:
-            from utilities.ui_utils import sortEvents
+            from modules.ui_utils import sortEvents
             root = self.parent
             eventList = join_child(root, "RunningEventList")
             sortEvents(eventList)

@@ -1,9 +1,9 @@
 from modules.modules import *
 from screens.event_configuration.widgets.resource_widgets import ResourcesLayoutP, ResourceInfoLayoutP, ResourceP
-from utilities import *
+# from modules import *
 from core.event_manager import *
-from utilities.ui_utils import *
-from utilities.utilities import *
+from modules.ui_utils import *
+from modules.utilities import *
 from screens.event_configuration.widgets.editable_event import *
 from screens.event_configuration.widgets.configuration_widgets import *
 from screens.event_configuration.widgets.configuration_buttons import *

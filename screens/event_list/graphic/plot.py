@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from utilities.utilities import *
+from modules.utilities import *
 import calendar
 from datetime import datetime, timedelta
 import matplotlib

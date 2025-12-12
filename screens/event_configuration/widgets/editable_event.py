@@ -1,9 +1,9 @@
 from modules.modules import *
 from kivy.uix.dropdown import DropDown
-from utilities import *
+# from modules import *
 from core.event_manager import *
-from utilities.ui_utils import *
-from utilities.utilities import *
+from modules.ui_utils import *
+from modules.utilities import *
 from kivy.uix.spinner import Spinner
 
 class AdventureImage(Image):

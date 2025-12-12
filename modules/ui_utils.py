@@ -1,8 +1,8 @@
 from modules.modules import *
-from utilities.utilities import * 
+from modules.utilities import * 
 
 # Carga el archivo KV con los estilos para las utilidades de UI
-Builder.load_file("utilities/styles/ui_utils.kv")
+Builder.load_file("modules/styles/ui_utils.kv")
 
 def sortEvents(eventList):
     """

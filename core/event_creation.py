@@ -1,7 +1,7 @@
 
-from utilities.utilities import *
+from modules.utilities import *
 from core.event_manager import validateEventInfo, checkEvent, mergeInformation, createEvent, validResources
-from utilities.ui_utils import *
+from modules.ui_utils import *
 import datetime as dt
 
 def addToEventList(event):

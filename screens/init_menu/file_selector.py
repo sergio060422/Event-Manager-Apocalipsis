@@ -1,7 +1,7 @@
 from modules.modules import *
 from kivy.uix.filechooser import FileChooserIconView
-from utilities.utilities import *
-from utilities.ui_utils import showMessage, Message, Error
+from modules.utilities import *
+from modules.ui_utils import showMessage, Message, Error
 import os, sys, shutil
 
 Builder.load_file("screens/init_menu/styles/file_selector.kv")

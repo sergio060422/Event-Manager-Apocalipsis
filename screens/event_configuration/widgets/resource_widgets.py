@@ -1,5 +1,5 @@
 from modules.modules import *
-from utilities.utilities import *
+from modules.utilities import *
 
 class ResourceInfoLayoutP(StackLayout):
     """

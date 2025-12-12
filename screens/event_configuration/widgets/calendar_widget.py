@@ -1,5 +1,5 @@
 from modules.modules import *
-from utilities.utilities import *
+from modules.utilities import *
 
 # Lista de nombres de meses para mostrar en la interfaz. El índice 0 es un marcador de posición.
 months = [0, "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]

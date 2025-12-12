@@ -1,5 +1,5 @@
 from modules.modules import *
-from utilities.utilities import *
+from modules.utilities import *
 from core.event_creation import create_adventure
 
 class Backbutton(ButtonBehavior, Image):

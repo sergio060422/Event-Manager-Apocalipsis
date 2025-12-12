@@ -7,7 +7,7 @@ Config.set('input', 'mouse', 'mouse,disable_multitouch')
 from screens.event_configuration.configuration import MainConfig
 from screens.event_configuration.widgets.configuration_widgets import FloatContainer
 from screens.event_configuration.widgets.configuration_buttons import Backbutton, CommandAdventure, ListAdventures
-from utilities.utilities import *
+from modules.utilities import *
 from screens.event_list.events import MainEventContainter
 from screens.init_menu.face import Container
 from modules.modules import *

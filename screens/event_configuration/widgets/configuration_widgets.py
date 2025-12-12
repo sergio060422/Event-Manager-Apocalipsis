@@ -1,8 +1,8 @@
 from modules.modules import *
-from utilities.utilities import *
+from modules.utilities import *
 from screens.event_configuration.widgets.calendar_widget import TotalCalendar
 from kivy.uix.dropdown import DropDown
-from utilities.ui_utils import configShowAnimation
+from modules.ui_utils import configShowAnimation
 
 class DateIniButton(Button):
     """

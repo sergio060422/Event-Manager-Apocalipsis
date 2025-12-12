@@ -1,5 +1,5 @@
 import datetime as dt
-from utilities.utilities import *
+from modules.utilities import *
 from screens.event_list.graphic.plot import get_date
 
 sg1 = "por favor verifique que los valores seleccionados sean correctos!"

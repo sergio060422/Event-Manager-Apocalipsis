@@ -141,7 +141,11 @@ Event-Manager-Apocalipsis/
 │       └── resources.json  # Catálogo de recursos y sus propiedades
 ├── fonts/                  # Fuentes tipográficas personalizadas
 ├── modules/                # Módulos y librerías personalizadas
-│   └── modules.py          # Definiciones de módulos
+│   ├── styles/
+│   │   └── ui_utils.kv     # Estilos de componentes reutilizables 
+│   ├── modules.py          # Definiciones de módulos
+│   ├── ui_utils.py         # Componentes de UI comunes y animaciones
+│   └── utilities.py        # Funciones de ayuda generales
 ├── screens/                # Pantallas de la interfaz
 │   ├── event_configuration/                # Configuración del evento 
 │   │   ├── styles/
@@ -169,11 +173,6 @@ Event-Manager-Apocalipsis/
 │       │   └── file_selector.kv            # Estilos del selector de archivos
 │       ├── face.py                         # Lógica del menú de inicio
 │       └── file_selector.py                # Lógica del selector de archivos
-├── utilities/              # Funciones auxiliares
-│   ├── styles/
-│   │   └── ui_utils.kv     # Estilos de componentes reutilizables 
-│   ├── ui_utils.py         # Componentes de UI comunes y animaciones
-│   └── utilities.py        # Funciones de ayuda generales
 ├── main.kv                 # Estilo del inventario de recurso y estructura de la aplicación
 ├── main.py                 # Lógica principal de la aplicación y del selector de recursos
 ├── requirements.txt        # Dependencias del proyecto
@@ -194,7 +193,7 @@ Lo primero es obtener una copia de los archivos del proyecto en tu computadora.
 3.  Ejecuta el siguiente comando para descargar los archivos:
 
 ```bash
-git clone https://github.com/sergio060422/Event-Manager-Apocalipsis.git
+git clone https://github.com/SJopez/Event-Manager-Apocalipsis.git
 ```
 
 4.  Entra en la carpeta que se acaba de crear:
